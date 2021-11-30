@@ -1,0 +1,50 @@
+/* slideTransition.scss */
+
+//old page exiting, hides it underneath (bottom) 
+.pageSlider-exit > .page {
+    opacity:1;
+    z-index: 1;
+    
+  }
+  //new page entering, show it on top
+  .pageSlider-enter > .page {
+    opacity:0;
+    z-index: 10;
+    
+  }
+  //LEFT transition transform 100% to the right
+  .pageSlider-enter.left > .page {
+    opacity:1;
+    transform: translateX(100%);
+    
+  }
+  //RIGHT transition transform -100% to the left
+  .pageSlider-enter.right > .page {
+    opacity:1;
+    transform: translateX(-100%);
+    
+  }
+  //old exit left direction
+  .pageSlider-exit.left > .page {
+    opacity:0;
+    transform: translateX(-100%);
+    
+  }
+  //old exit right direction 
+  .pageSlider-exit.right > .page {
+    opacity:0;
+    transform: translateX(100%);
+    
+  }
+  .pageSlider-exit-active > .page {
+    opacity:0.5;
+  }
+
+  //Enter is active (Page has finished transitioning) make it settle down 
+  .pageSlider-enter.pageSlider-enter-active > .page {
+    opacity:0.8;
+    
+    transform: translateX(0%);
+    //Apply all transitions 
+    transition: opacity 500ms ease-in-out;
+  }
