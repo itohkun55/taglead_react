@@ -47,7 +47,7 @@ class APICallController{
             }
 
             const result=setFunc(results.data);
-            //console.log(typeStr,results,result);
+            console.log(typeStr,results,result);
 
         
             if (msg!=="") {

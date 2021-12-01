@@ -1,5 +1,5 @@
 {
-  "name": "memotwicheck",
+  "name": "taglead",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,7 +14,8 @@
     "css-loader": "^6.3.0",
     "gh-pages": "^3.2.3",
     "jslint": "^0.12.1",
-    "node-sass": "4.14.1",
+    "netlify-cli": "^8.0.6",
+    "node-sass": "^4.14.1",
     "notistack": "^1.0.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -55,6 +56,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage": "https://itohkun55.github.io/taglead"
+  }
 }
