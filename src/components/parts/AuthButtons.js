@@ -21,6 +21,7 @@ export const LoginButton=({red, callback})=>{
 
     const SetAuthConnection = (response) => {
         console.log("LOGI_N_URL ",LOGIN_URL);
+        console.log(drfClientId,drfClientSecret);
         axios.post(LOGIN_URL, {
             token: response.accessToken,
             backend: "google-oauth2",
