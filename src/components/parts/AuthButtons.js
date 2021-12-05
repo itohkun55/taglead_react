@@ -17,11 +17,11 @@ export const LoginButton=({red, callback})=>{
     const [redirect ,setRedirect]=useState(red);
     const dispatch = useDispatch();
     const history=useHistory();
-    const LOGIN_URL=`${API_URL}auth/convert-token`;
+    const LOGIN_URL=`${API_URL}/auth/convert-token`;
 
     const SetAuthConnection = (response) => {
         console.log("LOGI_N_URL ",LOGIN_URL);
-        console.log(drfClientId,drfClientSecret);
+        //console.log(drfClientId,drfClientSecret);
         axios.post(LOGIN_URL, {
             token: response.accessToken,
             backend: "google-oauth2",
@@ -50,6 +50,9 @@ export const LoginButton=({red, callback})=>{
             <GoogleLogin
             clientId={googleClientId}
             buttonText="LOGIN WITH GOOGLE"
+            isSignedIn={true}
+            cookiePolicy={'single_host_origin'}
+
             onSuccess={(response) => SetAuthConnection(response)}
             render={(renderProps) => (
             <Button
