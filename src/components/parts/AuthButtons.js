@@ -20,7 +20,7 @@ export const LoginButton=({red, callback})=>{
     const LOGIN_URL=`${API_URL}/auth/convert-token`;
 
     const SetAuthConnection = (response) => {
-        console.log("LOGI_N_URL ",LOGIN_URL);
+        //console.log("LOGI_N_URL ",LOGIN_URL);
         //console.log(drfClientId,drfClientSecret);
         axios.post(LOGIN_URL, {
             token: response.accessToken,
@@ -31,14 +31,14 @@ export const LoginButton=({red, callback})=>{
         })
         .then((res) => {
             const { access_token, refresh_token } = res.data;
-            console.log(access_token,refresh_token)
+            //console.log(access_token,refresh_token)
             localStorage.setItem("access_token", access_token);
             localStorage.setItem("refresh_token", refresh_token);
             
             history.push("/main");
         })
         .catch((err) => {
-            console.log("Error Google login", err);
+            //console.log("Error Google login", err);
             dispatch({type:CONNECT_ERROR});
         });
     };

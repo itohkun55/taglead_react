@@ -1,10 +1,9 @@
 import {useHistory} from 'react-router-dom';
 import {LoginButton} from '../components/parts/AuthButtons';
 import CirculerLoading from '../components/CirculerLoading';
-import {Card,CardContent,CardMedia,CardActions,Button} from '@material-ui/core';
+import {CardMedia} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import SingleButtonPage from './SingleButtonPage';
-import {axios} from "axios";
 
 const styles=makeStyles((theme)=>({
    loginroot:{
@@ -47,21 +46,6 @@ const LoginPage = () => {
       <CirculerLoading isModal={true} />
     )
 
-
-    const onClick=()=>{
-      axios.get('http://itohkun55.pythonanywhere.com/api/ok')
-      .then(results=>{
-          console.log(results);
-      }).catch(error=>{
-          console.log(error.request);
-          console.log(error.config);
-          
-          console.log(error.name);
-          console.log(error.message);
-          
-      });
-  }
-
    return (
 
       <div>
@@ -70,9 +54,6 @@ const LoginPage = () => {
             ButtonAction={CardAction}
             Footer={Footer}
          />
-         <div>
-            <Button onClick={onClick}> 押してみそ </Button>
-         </div>
       </div>
 
    );
