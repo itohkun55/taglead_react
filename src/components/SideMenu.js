@@ -43,7 +43,6 @@ const SideMenu=({onClose=null})=>{
     const userRank=useSelector(state=>state.auth_login.userRank);
 
     const onMove=(path="none")=>{
-        console.log("close");
         if (path!=="none"){
           history.push(path);
         }

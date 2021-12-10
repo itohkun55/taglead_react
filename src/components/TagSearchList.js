@@ -44,7 +44,6 @@ const TagSearchList=(props)=>{
     const dispatch = useDispatch();
 
     const setNewTagList=()=>{
-        console.log("setNewTagList  --");
         if(!timeline || selected.length==0 ) return;
         const fromDay=new Date(timeline.slice(-1)[0].dateRegist).toJSON();
         

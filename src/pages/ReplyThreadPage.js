@@ -2,8 +2,9 @@ import React, {useEffect} from 'react';
 import {useSelector,useDispatch}  from 'react-redux';
 import { LinearProgress, makeStyles } from '@material-ui/core';
 import  {getReplyData} from '../actions';
-import ReplyColumnList  from '../components/ReplyColumnList'
+import ReplyColumnList  from '../components/ReplyColumnList';
 import ReplyColumn from '../components/ReplyColumns';
+import MemoColumn from '../components/MemoColumn';
 
 //テスト表示用
 
@@ -41,10 +42,17 @@ const ReplyThreadPage=(props)=>{
 
     const normalSceane=()=>{
         return (
-            <div className={classes.base} >
+            <div >
                 
                 {reply_main.past_thread.length!==0 ?
-                　　<div><div> 過去の履歴 <div/> <ReplyColumnList   data={ reply_main.past_thread } boxstyle={"thread"} mark={"a"} /></div></div> 
+                　　<div>
+                        <div> 過去の履歴 <div/>
+                        <ReplyColumnList   
+                            data={ reply_main.past_thread } 
+                            fav={ reply_main.fav}  
+                            read={reply_main.read}  
+                            boxstyle={"thread"} 
+                            mark={"a"} /></div></div> 
                     :
                      <div/> 
                 }
@@ -55,11 +63,38 @@ const ReplyThreadPage=(props)=>{
                      <div/> 
                 }
                 <div>
-                    <ReplyColumn data={reply_main.self_data }  mark={"e"} />
+                    <MemoColumn data={reply_main.self_data } fav={ reply_main.fav} read={reply_main.read} rep={true} mark={"e"} />
                 </div>
-                {reply_main.child_data.length!==0 ?　　<div><div> 関連する応答 <div/> <ReplyColumnList   data={ reply_main.child_data } boxstyle={"thread"} mark={"c"}/></div></div> : <div/> }
-                {reply_main.future_thread.length!==0 ?　　<div><div> その後の履歴 <div/> <ReplyColumnList   data={ reply_main.future_thread } boxstyle={"thread"}  mark={"d"} /></div></div> : <div/> }
-            
+                {reply_main.child_data.length!==0 ?
+                    <div>
+                        <div> 関連する応答 </div>
+                        <div>
+                            <ReplyColumnList   
+                                data={ reply_main.child_data } 
+                                fav={ reply_main.fav}  
+                                read={reply_main.read}                              
+                                boxstyle={"thread"} 
+                                mark={"c"}/>
+                        </div>
+                    </div> 
+                    : <div/> 
+                }
+                {reply_main.future_thread.length!==0 ?
+                    <div>
+                        <div> その後の履歴 </div>
+                        <div>
+                            <ReplyColumnList   
+                                data={ reply_main.future_thread } 
+                                fav={ reply_main.fav}  
+                                read={reply_main.read}                              
+                                boxstyle={"thread"} 
+                                mark={"c"}/>
+                        </div>
+                    </div> 
+                    : <div/> 
+                }
+
+
             </div>
     
         )

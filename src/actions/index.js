@@ -5,7 +5,6 @@ import {
     RESET_MEMO,
     USER_LOGIN,
     AUTH_SUCCESS,
-    RESET_TAG,
     TAGGED_SEARCH,
     TAGGED_SEARCH_CONTINUE,
     GET_NOTICE_LIST,
@@ -21,15 +20,8 @@ import {
     MODIFY_TAG_ADMIN
 }  from '../lib/ActionTypeString';
 
-import {TestReplyData} from '../lib/TestReplyThreadData';
-import {TestTagListData,FormedTagInputData} from  '../lib/TestTagListData';
 import {getTimeStampNow} from '../lib/UtilityLibrary';
-
-import axios from 'axios';
 import  APICallController from '../lib/ConnectionLibrary';
-
-
-
 
 export const getTaggedData=(arr,fromDay,next=false)=>dispatch=>{
     let tagArray="-1";
@@ -126,7 +118,7 @@ export const editMemo=(id, mainText)=>dispatch=>{
     const resFunc=(res)=>{ return res;};
 
     let SCENE=MEMO_EDIT_END_MAIN;
-    if (APICallController.getView()=="tag"){
+    if (APICallController.getView()==="tag"){
         SCENE=MEMO_EDIT_END_TAG;
     } 
     const sendParam={ 'memoId':id,'mainText':mainText };
@@ -196,7 +188,7 @@ export const modifyTagByAdmin=(id,name,rank,type)=>dispatch=>{
     };
     const sendParam={tagId:id,tagname:name,tagrank:rank,tagtype:type};
 
-    console.log("sendParams:", sendParam);
+    //console.log("sendParams:", sendParam);
     APICallController.callAPI("modifytagadmin",sendParam,MODIFY_TAG_ADMIN,resFunc,dispatch,"タグ修正完了しました。");
 };
 
@@ -232,7 +224,7 @@ export const loadNewMemo=fromDay=>dispatch=>{
     };
     let RECORD_SET=LOAD_NEW_MEMO;
 
-    if (fromDay==-1) RECORD_SET=RESET_MEMO;
+    if (fromDay==="-1") RECORD_SET=RESET_MEMO;
 
     APICallController.callAPI("main",{fromDay:fromDay},RECORD_SET,resFunc,dispatch);    
 };

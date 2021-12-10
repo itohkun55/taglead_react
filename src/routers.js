@@ -29,7 +29,6 @@ const PageRouter=(props)=>{
 
     useEffect(() => {
       setPrevDepth(getPathDepth(location));
-      console.log("depth", getPathDepth(location));
     },[location]);
 
     const currentKey = location.pathname.split("/")[1] || "/";

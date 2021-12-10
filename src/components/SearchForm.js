@@ -50,12 +50,6 @@ const SearchForm=(props)=>{
     const [tillDay,setTillDay]=useState("");
     const [freeword,setFreeword]=useState("");
 
-    useEffect(()=>{
-        
-       console.log(user_list);
-        console.log(unit_list);
-    },[user_list,unit_list]);
-
     return (
             <Popper open={props.open} transition={true} placement={'bottom-end'} anchorEl={props.anchor}>
             <Box className={classes.box}>

@@ -38,20 +38,19 @@ class APICallController{
 
         instance.get(name,{params:setParams})
         .then(results=>{
-            console.log("results.data",results.data);
-    
+            console.log(results.data);
+           
             
             if(results.data.errorFlg ){
-                dispatch({type:RESULT_ERROR,result:results.data});    
+                dispatch({type:RESULT_ERROR,result:results.data});
+                dispatch({type:LOADING_END});
+
                 return;
             }
 
             const result=setFunc(results.data);
-            console.log(typeStr,results,result);
-
         
             if (msg!=="") {
-                console.log("msg",msg);
                 dispatch({type:SHOW_SNACK,msg:msg});
             }    
             dispatch({type:typeStr,result:result});

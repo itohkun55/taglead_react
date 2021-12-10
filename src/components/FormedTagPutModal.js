@@ -1,8 +1,8 @@
-import react,{useState,useEffect,useRef} from 'react';
+import {useState,useEffect,useRef} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 
 import Chip from '@material-ui/core/Chip';
-import {Button, Card,TextField, Typography} from '@material-ui/core';
+import {Button,TextField, Typography} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import {pushNewFormedMemo} from '../actions';
@@ -65,43 +65,13 @@ const FormedTagPutModal=(props)=>{
 
     const textRef=useRef(null);
     const textRefMain=useRef(null);
-    
-
-    const [open,setOpen] =useState(false);
-
-
     const tag_source=useSelector(state=>state.auth_login.formatted);
-
-    const view_name=useSelector(state=>state.setview);
-
-    //const tag_source=props.data;
-    //選択候補のタグ
     const [tagArray,setTagArray]=useState([]);
     const dispatch = useDispatch();
-
-    
-    // useEffect(()=>{
-    //     console.log("タグ獲得開始");
-    //     dispatch(tag_start());
-    // },[]);
-
     
     useEffect(()=>{
-    //    setOpen(props.open);
-        //console.log("タグ整理開始",tag_source);
         searchTagArray();
     },[selected,tag_source]);
-
-    
-    //モダルを閉じるとき　全てのリストを整理してから自分を閉じる
-    const onClose=()=>{
-        setSelected([]);
-        setDefs([]);
-        setLastOne({});
-        setOpen(false);
-        props.onClose();
-    };
-
 
     //Setを利用した積集合作成関数
     const  intersection = (setA, setB)=> {
@@ -128,7 +98,7 @@ const FormedTagPutModal=(props)=>{
 
         const showArray=(str)=>{
             const s=str.split(",")
-            if (s==[]) return [];
+            if (s===[]) return [];
             return s.map((d)=>parseInt(d));
         }
   
@@ -174,7 +144,7 @@ const FormedTagPutModal=(props)=>{
     const putSelectedInPlace=(data)=>{
         const ss=Object.assign([],data);
         setSelected(data);
-        if (data.length==0){
+        if (data.length===0){
             setDefs([]);
             setLastOne({});
             return;
@@ -193,13 +163,12 @@ const FormedTagPutModal=(props)=>{
 
     const onDelete=()=>{
         let nowselected=Object.assign([],selected);
-        const ts=nowselected.pop();
         putSelectedInPlace(nowselected);
     };
 
     const onDecide=(data,txt)=>{
         let copy=Object.assign({},data);
-        console.log("copy",copy);
+        //console.log("copy",copy);
         copy.keyTagMain.strTagName=copy.keyTagMain.strTagName+":"+txt;
         let nowselected=[...selected,copy];
         putSelectedInPlace(nowselected);
@@ -238,7 +207,6 @@ const FormedTagPutModal=(props)=>{
         closeAction();    };
 
     const handleClose=()=>{
-        //setOpen(false);
         closeAction();
         props.onClose();
     }
@@ -283,7 +251,6 @@ const FormedTagPutModal=(props)=>{
     const CheckSpecialTag=(data)=>{
         let inputType="none";
         let defaultValue="none";
-        console.log("CheckSpecialTag",data);
         
         const date=new Date();
         switch (data.keyTagMain.numTagType){

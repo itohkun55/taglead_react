@@ -53,8 +53,6 @@ const tagRanks={
 
 
 export const UserTagAdminColumn=(props)=>{
-    //console.log(props);
-    //console.log(" UserTagConfigColumn start ");
     const [viewmode,setViewMode]=useState(true);
     
     const changFlg=useSelector(state=>state.tag_admin.change,0);
@@ -80,12 +78,10 @@ export const UserTagAdminColumn=(props)=>{
     };
 
     useEffect(() => {
-        //console.log("get change!");
         setTagName(props.data.strTagName);
         setTagRank(props.data.numTagRank);
         setTagType(props.data.numTagType);
 
-        //console.log(("---",TAG_TYPES.find(el=>el.id==props.data.numTagType)));
     }, [props.data]);
 
     
@@ -93,11 +89,6 @@ export const UserTagAdminColumn=(props)=>{
     const type=(tt)=>(TAG_TYPES.find(el=>el.id==tt));
 
     const modeView=()=>{
-        //console.log("type",type,tagType);
-        //if (Object.typeOf(type)=='undefined') console.log(" undifined error");
-        //const =TAG_TYPES.find(el=>el.id==tagType);
-
-        
         return (
             <div>
                 <span>{props.data.strTagName}</span>

@@ -196,7 +196,6 @@ const memo_main=(state=INIT_MEMO_MAIN_STATE,action=INIT_ACTION)=>{
 
         case MEMO_EDIT_END_MAIN:
             
-            console.log("result:",result);
             const newtimeline=state.timeline.map((d)=> d.id===result.id ? result : d );
             return {
                 ...state,
@@ -204,8 +203,7 @@ const memo_main=(state=INIT_MEMO_MAIN_STATE,action=INIT_ACTION)=>{
             };
             
         case PUSH_SHOW_MEMO_BUTTON:
-            //console.log(state);
-
+            
             return Object.assign({},state,{
                 isPrivate:action.isPrivate,
                 memomake_open:action.memomake_open}
@@ -253,7 +251,6 @@ export const tagged_main=(state=INIT_TAGGED_SEARCH,action=INIT_ACTION)=>{
         
         case TAGGED_SEARCH_CONTINUE:
             if( result.timeline.length==0){
-                console.log(" has no next ");
                 return {...state,
                     endflg:result.endflg
                 }; 
@@ -264,12 +261,10 @@ export const tagged_main=(state=INIT_TAGGED_SEARCH,action=INIT_ACTION)=>{
                 timeline:state.timeline.concat().concat(result.timeline),
                 read:state.read.concat().concat(result.read),
                 fav:state.fav.concat().concat(result.fav),
-                //results:action.results,
                 endflg:result.endflg
             }; 
 
         case MEMO_EDIT_END_TAG:
-            console.log("result:",result);
             const newtimeline=state.timeline.map((d)=> d.id===result.id ? result : d );
             return {
                 ...state,
@@ -315,6 +310,8 @@ const INIT_REPLY_MAIN={
     past_thread:[],
     child_data:[],
     future_thread:[],
+    read:[],
+    fav:[],
     load_flg:false
 };
 
@@ -363,14 +360,13 @@ export const reply_main=(state=INIT_REPLY_MAIN,action)=>{
         case SHOW_REPLY:
             
             const result=action.result;
-            console.log(" reply source ",result);
-
+            
             const past_thread=[];
             const child_data=[];
             const future_thread=[];
+            
             let parent_data={};
-            console.log(" reply timeline ",result.timeline);
-
+            
             const self_data=result.timeline.find((d) => d.id===parseInt(result.id));
                 
             result.timeline.map((d)=>{
@@ -396,6 +392,8 @@ export const reply_main=(state=INIT_REPLY_MAIN,action)=>{
                 past_thread:past_thread,
                 child_data:child_data,
                 future_thread:future_thread,
+                read:action.result.read,
+                fav:action.result.fav,
                 endFlg:true,
                 load_flg:true
                 

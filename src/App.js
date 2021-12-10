@@ -29,7 +29,7 @@ function App() {
         <Route  path='/logout' exact component={LogoutPage} />
         <Route  path='/error' exact component={ErrorPage} />
         <Route  path='/test'  exact > <TestMain/> </Route>
-        { location.pathname!="/" &&
+        { location.pathname!=="/" &&
         <Route component={PageBase} />
         }
         </Switch>      

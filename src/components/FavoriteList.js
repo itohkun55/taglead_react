@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}  from 'react';
+import React ,{useState}  from 'react';
 import {useDispatch,useSelector}  from 'react-redux';
 import {makeStyles} from '@material-ui/styles';
 import MemoColumn from './MemoColumn';
@@ -32,15 +32,11 @@ const FavoriteList=(props)=>{
     const read=useSelector(state=>state.show_favorite.read,[]);
     const fav=useSelector(state=>state.show_favorite.fav,[]);
     const endflg=useSelector(state=>state.show_favorite.endflg);
-    const [startnum,setStartNum]=useState(0);
     const dispatch = useDispatch();
 
-    
     const setNewTimeLine=()=>{
         dispatch(showFavorite());
-        //loadNewMemo(startnum);
     };
-
 
     const classes=listStyles();
 
@@ -54,7 +50,6 @@ const FavoriteList=(props)=>{
                     return (<MemoColumn
                         key={d.id}
                         data={d}
-                        
                         read={read}
                         fav={fav}
                     />)

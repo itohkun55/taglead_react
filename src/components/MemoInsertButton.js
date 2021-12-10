@@ -1,19 +1,11 @@
 import React,{useState} from 'react';
-import {useDispatch}  from 'react-redux';
-import {Fab,Menu,MenuItem,Popover,Breadcrumbs,Link,Typography}  from '@material-ui/core';
-
+import {Fab,Popover,Breadcrumbs,Link,Typography}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
 import AddIcon from '@material-ui/icons/Add';
 import CreateIcon from '@material-ui/icons/Create';
-import BorderColorSharpIcon from '@material-ui/icons/BorderColorSharp';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
-
-
-//import {pushNewMemo}  from '../actions';
 import {FREE_MODAL_OPEN,FORMED_MODAL_OPEN} from '../lib/ActionTypeString';
-import { EmailOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   
 
 const MemoInsertButton=(props)=>{
-    const dispatch=useDispatch();
 
     //どこをクリックしても消せるようにしたいのでstateはreduxに振る
     const [bmenu,showMenu]=React.useState(null);
@@ -61,7 +52,6 @@ const MemoInsertButton=(props)=>{
         props.onModalOpen(action);
     };
     const onClose=(event)=>{
-        console.log("close");
         showMenu(null);
         setAnchorEl(null);
     };
@@ -83,42 +73,34 @@ const MemoInsertButton=(props)=>{
             aria-label="add"
             aria-haspopup="true">
                 <AddIcon/>
-            
-                
             </Fab>
-
             <Popover
-                    anchorEl={anchorEl}
-                    
-                    onClose={onClose}
-                    
-                    open={Boolean(bmenu)}
-                    anchorOrigin={{
-                    vertical: 'center',
-                        horizontal: 'left',
-                    }}
-                    transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'right',
-                    }}
-                >
+                anchorEl={anchorEl}
+                onClose={onClose}
+                open={Boolean(bmenu)}
+                anchorOrigin={{
+                  vertical: 'center',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'center',
+                  horizontal: 'right',
+                }}
+            >
+            <Breadcrumbs aria-label="breadcrumb">
+                {
+                  modalIcons.map((d)=>{
+                    return (
+                        <Link color="inherit" href="/" onClick={(e)=>menuPushEvent(d.action,e)}>
+                          <div className={classes.Iconspace}>{d.icon}</div>
+                      </Link>
+                    )
+                  })
+                }
 
-                <Breadcrumbs aria-label="breadcrumb">
-                    {
-                      modalIcons.map((d)=>{
-                        return (
-                            <Link color="inherit" href="/" onClick={(e)=>menuPushEvent(d.action,e)}>
-                              <div className={classes.Iconspace}>{d.icon}</div>
-                          </Link>
-                        )
-                      })
-
-                    }
-
-                </Breadcrumbs>
-            </Popover>
+            </Breadcrumbs>
+          </Popover>
         </div>
-
     )
 }
 

@@ -8,7 +8,6 @@ import {CLOSE_MEMOMAKE, PUSH_NEW_MEMO,PRIVATE,TEAM} from '../lib/ActionTypeStrin
 import {closeModal,pushNewMemo} from '../actions';
 import PropTypes from 'prop-types';
 
-
 //新規メモを作成するモーダル
 
 /*

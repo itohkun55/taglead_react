@@ -11,7 +11,6 @@ import {FREE_MODAL_OPEN,FORMED_MODAL_OPEN} from './lib/ActionTypeString';
 import PageRouter from './routers';
 
 import  {auth_login_success} from './actions';
-import APICallController from './lib/ConnectionLibrary';
 import { checkHasContent } from './lib/UtilityLibrary';
 import { makeStyles } from '@material-ui/core';
 import { useWindowDimensions } from './lib/useWindowDimensions';
@@ -57,7 +56,6 @@ const PageBase=(props)=>{
     const [menuOpen,setMenuOpen]=useState(false);
     const [freetagOpen,setFreeTagOpen]=useState(false);
     const [formtagOpen,setformTagOpen]=useState(false);
-    const [followOpen,setFollowOpen]=useState(false);
     const reply_source=useSelector(state=>state.reply_main.reply_source);
     const follow_data = useSelector(state => state.follow_main.follow_data,{});
     const tag_list=useSelector(state=>state.auth_login.tag_list,[]);
@@ -77,7 +75,6 @@ const PageBase=(props)=>{
     const closeModal=()=>{
         setformTagOpen(false);
         setFreeTagOpen(false);
-        setFollowOpen(false);
 
     };
 
@@ -94,8 +91,6 @@ const PageBase=(props)=>{
 
     useEffect(()=>{
         if(checkHasContent(follow_data)|| checkHasContent(reply_source) ){
-            //console.log("転送データを受け取った！",follow_data);
-            //setFollowOpen(true);
             setFreeTagOpen(true);
         }
 
@@ -118,20 +113,6 @@ const PageBase=(props)=>{
 
     const {width,height}=useWindowDimensions();
     const isMobile=width<500;
-
-    const SideSet=()=>{
-        if(isMobile){
-            console.log("mobileset true");
-            return(
-                <div ><SideDrawer mobile={true}  open={false}  onClose={onMenuClose}/></div>
-            )
-        }else{
-            return(
-                <div className={classes.side} ><SideDrawer mobile={false}  open={true} /></div>
-            )
-        }
-    }
-
     return (
         <div>
         {error ?

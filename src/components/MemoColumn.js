@@ -5,7 +5,7 @@
 
 //ヘッダーから開閉イベントを受けたら詳細をアニメーションで展開する
 
-import React ,{useState,useRef} from 'react';
+import React ,{useState} from 'react';
 import {useSelector,useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +32,19 @@ import {hasreadCheck,hasfavCheck,editMemo, deleteMemo} from '../actions';
 const useStyles = makeStyles((theme) => ({
 
 
-
+    box11:{
+        width:"85%",
+        padding: "0.5em 1em",
+        margin: "2em 0",
+        color: "#5d627b",
+        background: "white",
+        borderTop: "solid 5px #5d627b",
+        boxShadow: "0 3px 5px rgba(0, 0, 0, 0.22)",
+        p:{
+            margin: 0, 
+            padding: 0    
+        }
+    },
     memo:{            
         width: '90%',
         backgroundColor: theme.palette.background.paper,
@@ -108,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MemoColumn=({data,read,fav})=>{
+const MemoColumn=({data,read,fav,rep=false})=>{
     //console.log(props);
     const TEXT_LIMIT=40;
     const [anchorEl,setAnchorEl]=useState(null);
@@ -123,8 +135,8 @@ const MemoColumn=({data,read,fav})=>{
     const user_list = useSelector(state => state.auth_login.user_list,[]);
 
     const [expanded ,setExpanded]=useState(false);
-    const [isFav, setFavorite] = useState(fav.includes(data.id));
-    const [hasRead, setRead] = useState(read.includes(data.id));
+    const [isFav, setFavorite] = useState(fav.includes(data.id),[]);
+    const [hasRead, setRead] = useState(read.includes(data.id),[]);
     
     const history=useHistory();
     const classes=useStyles();
@@ -280,7 +292,7 @@ const MemoColumn=({data,read,fav})=>{
     return (
         <div>
 
-                <Box className={classes.memo}>
+                <Box className={classes.box11}>
                     <div className={classes.topset} >
                         <span className={classes.headertext}>
                         <div><Typography variant='h6' >{getDateMessage(data.dateRegist) }</Typography></div>
@@ -336,8 +348,10 @@ const MemoColumn=({data,read,fav})=>{
                         <div className={classes.ulbutton} >
                             <span><IconButton edge="start" color="inherit"  className={classes.menuButton} onClick={()=>dispatch({type:MAKE_NEW_REPLY_MODAL,reply_source:data})} ><ReplyTwoToneIcon size="small"/></IconButton></span>
                             <span><IconButton edge="start" ize="small" color="inherit" onClick={()=>dispatch({type:MAKE_NEWFOLLOW_MODAL,follow_data:data})} ><AddCircleOutlineTwoToneIcon size="small"/></IconButton></span>
-                            {data.keyReplyBase &&
+                            {data.keyReplyBase &  !rep　?
                                 <span><Button edge="start" ize="small" color="inherit" onClick={()=>history.push("/reply/"+data.id)}   endIcon={<DoubleArrowOutlined />}> 応答を開く </Button></span>
+                                :
+                                null
                             }
 
                             {data.boolHasModified &&

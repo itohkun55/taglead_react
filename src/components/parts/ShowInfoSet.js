@@ -15,7 +15,6 @@ export const GetTagName=({id})=>{
 
     const tag_list= useSelector(state=>state.auth_login.all_tag,[]);
     const tagname=tag_list.find(el=> el.id==id );
-    //console.log(tagname);
     if( !tagname ) return  <span> タグ不明 {id} :</span>
 
     return  <span>{tagname.strTagName} :</span> 

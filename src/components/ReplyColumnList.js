@@ -1,6 +1,7 @@
 import React, { useState, useLayoutEffect, useRef,useEffect } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import ReplyColumn from './ReplyColumns';
+import MemoColumn from './MemoColumn';
 
 /**
  * Styled component
@@ -35,7 +36,7 @@ const useStyles=makeStyles({
 });
 
 
-const  ReplyColumnList=(props)=> {
+const  ReplyColumnList=({data,fav,read})=> {
 	const [lineHeight, setLineHeight] = useState(0);
     const classes=useStyles({lineHeight});
 	const wrapperHeight = useRef(null);
@@ -55,7 +56,7 @@ const  ReplyColumnList=(props)=> {
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		}
-	}, [props.data, lineHeight]);
+	}, [data, lineHeight]);
 
 
 	return (
@@ -65,12 +66,14 @@ const  ReplyColumnList=(props)=> {
 			lineHeight={lineHeight}
 		>
             {
-                props.data.map((d)=>{
-                    return ( <ReplyColumn
+                data.map((d)=>{
+                    return ( <MemoColumn
                         boxstyle={"thread"}
                         key={d.id}
                         data={d}
-                        mark={props.mark}
+                        fav={fav}
+                        read={read}
+                        rep={true}
 
                     />)
                     

@@ -70,10 +70,8 @@ const FollowColumn=(props)=>{
 
 
     const setUserSelect=(e)=>{
-        console.log(e.target.value);
         const userid=e.target.value;
         
-
         if (userid===-1 ){
             setBshowTitle(true)
             setTeam(false)
@@ -128,9 +126,6 @@ const FollowColumn=(props)=>{
 
 
     React.useEffect(()=>{
-        console.log("SSSS");
-        console.log(props);
-        console.log(defUser,defTeam);
         const user=props.user;
         const team=props.team;
         

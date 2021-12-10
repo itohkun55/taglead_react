@@ -62,7 +62,6 @@ const NoticeColumn=({data})=>{
 
 
     useEffect(()=>{
-        console.log("userlist ",  userlist);
         if (!userlist || userlist.length===0) return;
 
         const sender=getUserName(userlist,data.keyMemoMain.keySender);

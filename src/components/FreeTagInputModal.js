@@ -1,12 +1,11 @@
-import react,{useState,useEffect,useRef} from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import {useState,useEffect,useRef} from 'react';
+import { useDispatch } from 'react-redux';
 import {Modal,
     TextField,
     Button,
     Card,
     } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {pushNewMemo,setReplyData} from '../actions';
@@ -14,8 +13,6 @@ import {getTimeStampNow,checkHasContent} from '../lib/UtilityLibrary';
 import TagInputList from './TagInputList';
 import SummaryMemo from './parts/SummaryMemo';
 import { DELETE_NEWFOLLOW_MODAL,DELETE_NEW_REPLY_MODAL } from '../lib/ActionTypeString';
-
-
 
 const useStyles=makeStyles((theme)=>({
 
@@ -60,7 +57,7 @@ const FreeTagInputModal=(props)=>{
     const textRef=useRef(null);
 
     useEffect(()=>{
-        if ( selected.length==0||mainText.length==0 || (hasTime && registTime=="") ){
+        if ( selected.length===0||mainText.length===0 || (hasTime && registTime==="") ){
             setCanSubmit(false);
         }else{
             setCanSubmit(true);

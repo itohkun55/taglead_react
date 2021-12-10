@@ -1,4 +1,4 @@
-import React ,{useEffect} from 'react';
+import {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import  {useSnackbar} from 'notistack';
 
@@ -11,14 +11,11 @@ const FeedbackSnackbar=()=> {
     useEffect(() => {
         //console.log("SNACK!!");
         if(snacklist.length>0){
-
            enqueueSnackbar(snacklist.slice(-1)[0],{ variant: 'info',autoHideDuration:1000});
-
         }
-    
     }, [snacklist]);
 
     return null;
-}
+};
 
 export default FeedbackSnackbar;

@@ -99,10 +99,6 @@ const useStyles = makeStyles((theme) => ({
 const ReplyColumn=({data,boxstyle,mark})=>{
     const TEXT_LIMIT=40;
     const dd=data;
-    //console.log(mark);
-    console.log("rpc",dd);
-    console.log("rpc str",dd.strMainText);
-    
     
     const setHeaderText=(txt)=>{
         //if (typeof txt ==="undefined") console.log("txt undefined ");

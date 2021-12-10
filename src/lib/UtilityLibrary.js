@@ -30,8 +30,6 @@ export const getTagNames=(tag_list,strArray)=>{
 
 //入力はYYYY-MM-DD HH:MM
 export const getDateMessage=(date)=>{
-    //console.log(date);
-    //console.log(Date.parse(date));
     const dd= new Date(Date.parse(date)) ;
     const nowdd=new Date();
 
@@ -61,8 +59,7 @@ export const getDateMessage=(date)=>{
 export const getTimeStampNow=()=>{
 
     const date = new Date();
-    //console.log( 'date:', date);
-
+    
     const year_str = date.getFullYear();
     const month_str = date.getMonth()+1;
     const day_str = date.getDate();
@@ -77,6 +74,5 @@ export const getTimeStampNow=()=>{
     format_str = format_str.replace(/hh/g, hour_str);
     format_str = format_str.replace(/mm/g, minute_str);
     format_str = format_str.replace(/ss/g, second_str);
-    //console.log("format_str",format_str);
     return format_str;
-}
+};

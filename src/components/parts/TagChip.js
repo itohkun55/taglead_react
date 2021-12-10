@@ -42,11 +42,9 @@ export const TagChip=({d})=>{
         classes.placeColor,
         classes.actionColor
     ];
-    //console.log("tagchip", d);
-
+    
     const sd=d.split(":");
     const tagdata=tag_source.find(el=> el.id==sd[0]);
-    //console.log("data:" ,tagdata);
     let name="";
     
     if( !tagdata|| typeof(tagdata)=='undefined'){
