@@ -81,14 +81,13 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
             
             return  { ...state,
                 userId:userConf.userId,
+                username:userConf.username,
                 userRank:userConf.userRank,
                 user_list:userConf.user_list,
                 main_tag:userConf.main,
                 sub_tag:userConf.sub,
                 all_tag:userConf.all,
-                formatted:userConf.formatted
-                //unit_list:result.unit_list
-                //tag_list:action.tag_list
+                formatted:userConf.formatted,
             };
 
     
