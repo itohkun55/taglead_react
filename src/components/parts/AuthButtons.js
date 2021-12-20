@@ -50,6 +50,7 @@ export const LoginButton=({red, callback})=>{
             history.push("/main");
         })
         .catch((err) => {
+            console.log(err.messages);
             dispatch({type:CONNECT_ERROR});
         });
     };
@@ -113,7 +114,7 @@ export const FirstLoginButton=({red, callback})=>{
             history.push("/firstend");
         })
         .catch((err) => {
-            console.log("認証失敗")
+            console.log("認証失敗",err);
             dispatch({type:CONNECT_ERROR});
         });
     };
