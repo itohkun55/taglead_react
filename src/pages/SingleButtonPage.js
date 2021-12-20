@@ -45,7 +45,7 @@ const SingleButtonPage = ({Content,ButtonAction,Footer}) => {
                {Content}
             </CardContent>
             <CardActions>        
-               {ButtonAction}
+               <div className={classes.button}>{ButtonAction}</div>
             </CardActions>
          </Card>
          <div>{Footer}</div>
