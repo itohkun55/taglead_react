@@ -16,6 +16,7 @@ export const NO_ACTION="NO_ACTION";
 
 export const USER_LOGIN="USER_LOGIN";
 export const DONE_LOGOUT="DONE_LOGOUT";
+export const RESET_AUTH="RESET_AUTH";
 
 export const SHOW_REPLY="SHOW_REPLY";
 export const TAGGED_START="TAGGED_START";
@@ -34,6 +35,7 @@ export const LOADING_END= "LOADING_END";
 export const PUSH_NEW_MEMO="PUSH_NEW_MEMO";
 export const PUSH_PASSWORD="PUSH_PASSWORD";
 export const DELETE_MEMO="DELETE_MEMO";
+export const SIGN_UP="SIGN_UP";
 export const AUTH_START = "AUTH_START";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";

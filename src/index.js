@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import PageRouter from './routers';
-
 import { Provider } from 'react-redux';
 import store from './store';
 
@@ -18,7 +16,6 @@ import {SnackbarProvider} from 'notistack';
       <SnackbarProvider maxSnack={3}>
       <Router>
       <App />
-      {/* <PageRouter/> */}
       </Router>
       </SnackbarProvider>
     </Provider>,

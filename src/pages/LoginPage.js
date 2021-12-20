@@ -1,46 +1,34 @@
 import {useHistory} from 'react-router-dom';
-import {LoginButton} from '../components/parts/AuthButtons';
+import {FirstLoginButton, LoginButton} from '../components/parts/AuthButtons';
 import CirculerLoading from '../components/CirculerLoading';
 import {CardMedia} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import SingleButtonPage from './SingleButtonPage';
 
 const styles=makeStyles((theme)=>({
-   loginroot:{
-
-      justifyContent:"center",
-      display: "flex",
-      flexWrap: "wrap",
-      width: 400,
-      margin: `${theme.spacing(0)} auto` 
-   },
-
-   card: {
-      //:"50%",
-      justifyContent:"center",
-      marginTop: theme.spacing(20),
-      width:'70%',
-      maxWidth:"300px"
-
-   },
-   
-   button:{
+   buttons:{
       display:"block",
+      //margin:"0 auto",
       marginRight:"auto",
-      marginLeft:"auto"
+      marginLeft:"auto",
+      alignItems:"center",
+
+      justifyContent:"center"
    }
 
 }));
 
 const LoginPage = () => {
-   const history=useHistory();
    const classes=styles();
    const CardContent=(
       <CardMedia  height={"50%"} component="img" image={`${process.env.PUBLIC_URL}/tagleadlogo.png`} />
    );
 
    const CardAction=(
-      <LoginButton  redi={false}　callback={()=>history.push("/")}/>
+      <div className={classes.buttons}>
+            <LoginButton />
+            <FirstLoginButton/>
+      </div>
    );
     const Footer=(
       <CirculerLoading isModal={true} />

@@ -30,7 +30,9 @@ import  {PUSH_SHOW_MEMO_BUTTON,
         CRITICAL_ERROR,
         SHOW_TAG_ADMIN,
         MAKE_TAG_ADMIN,
-        MODIFY_TAG_ADMIN
+        MODIFY_TAG_ADMIN,
+        RESET_AUTH,
+        SIGN_UP
     } from '../lib/ActionTypeString';
 
 import  {useSnackbar} from 'notistack';
@@ -49,7 +51,11 @@ const INIT_ACTION={
 
 //最初の認証時に取得する情報　各種各ユーザー情報など
 const INIT_AUTH_STATE={
+    firstend:false,
     isLoad:false,
+    userId:0,
+    username:"",
+    userRank:0,
     user_list:[],
     main_tag:[],
     sub_tag:[],
@@ -64,6 +70,11 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
     const result=action.result;
     
     switch (action.type) {
+        case SIGN_UP:
+            return {
+                ...state,
+                firstend:true
+            };
         case LOADING_START:
             return {
                 ...state,
@@ -80,6 +91,7 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
             const userConf=result.res;
             
             return  { ...state,
+                firstend:true,
                 userId:userConf.userId,
                 username:userConf.username,
                 userRank:userConf.userRank,
@@ -89,7 +101,8 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
                 all_tag:userConf.all,
                 formatted:userConf.formatted,
             };
-
+        case RESET_AUTH:
+            return INIT_AUTH_STATE;
     
         case USER_CONFIG_LIST:
         

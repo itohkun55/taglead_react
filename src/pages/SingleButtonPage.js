@@ -25,8 +25,10 @@ const styles=makeStyles((theme)=>({
    
    button:{
       display:"block",
-      marginRight:"auto",
-      marginLeft:"auto"
+      justifyContent:"center",
+      // marginRight:"auto",
+      // marginLeft:"auto"
+      margin:"0 auto"
    }
 
 }));
@@ -43,10 +45,11 @@ const SingleButtonPage = ({Content,ButtonAction,Footer}) => {
                {Content}
             </CardContent>
             <CardActions>        
-               <div  className={classes.button}>{ButtonAction}</div>
+               {ButtonAction}
             </CardActions>
          </Card>
-         {Footer} 
+         <div>{Footer}</div>
+          
       </div>
    );
 };

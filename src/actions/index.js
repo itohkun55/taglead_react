@@ -17,7 +17,8 @@ import {
     NO_ACTION,
     MAKE_TAG_ADMIN,
     SHOW_TAG_ADMIN,
-    MODIFY_TAG_ADMIN
+    MODIFY_TAG_ADMIN,
+    SIGN_UP
 }  from '../lib/ActionTypeString';
 
 import {getTimeStampNow} from '../lib/UtilityLibrary';
@@ -71,7 +72,12 @@ export const getReplyData=(id)=>dispatch=>{
 };
 
 
-
+export const setFirstAccess=()=>dispatch=>{
+    const resFunc=(res)=>{
+        return { "ok":"ok" };
+    };
+    APICallController.callAPI("firstend",{},SIGN_UP,resFunc,dispatch);
+};
 
 //最初の認証終了時(想定）のアクション
 //本来は色々引数があるはず

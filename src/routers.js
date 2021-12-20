@@ -39,17 +39,17 @@ const PageRouter=(props)=>{
     return (
       <div>
           <TransitionGroup component="div" className="App">
-          <CSSTransition
-          key={currentKey}
-          timeout={timeout}
-          classNames="pageSlider"
-          mountOnEnter={true}
-          unmountOnExit={true}
-        >
+           <CSSTransition
+              key={currentKey}
+              timeout={timeout}
+              classNames="pageSlider"
+              mountOnEnter={true}
+              unmountOnExit={true}
+            >
 
-        <div  className={ getPathDepth(location) - prevDepth >= 0    ? "left" : "right" }>
+              <div  className={ getPathDepth(location) - prevDepth >= 0    ? "left" : "right" }>
           
-                <Route exact path='/main' exact  component={MainListPage} />
+                <Route  path='/main' exact  component={MainListPage} />
                 <Route  path='/tag' exact component={TaggedSearchPage} />
                 {/* <Route  path='/test'  exact > <TestMain/> </Route> */}
                 <Route  path='/notice' exact component={NoticeListPage} />

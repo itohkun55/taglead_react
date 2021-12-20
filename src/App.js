@@ -2,12 +2,14 @@ import React,{useEffect} from 'react';
 import PageBase from './PageBase';
 import { useSelector } from 'react-redux';
 
-import {Route,useHistory} from 'react-router-dom';
+import {Router, Route,useHistory} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import ErrorPage from './pages/ErrorPage';
 import LogoutPage from './pages/LogoutPage';
 import TestMain from './pages/TestMain';
 import { Switch, useLocation } from 'react-router';
+import { FirstLoginButton } from './components/parts/AuthButtons';
+import FirstLoginEndPage from './pages/FirstLoginEndPage';
 function App() {
   //const datas=datasend;
   const location=useLocation();
@@ -23,17 +25,19 @@ function App() {
   return (
 
     <div className="App">
-      <Switch>
-        <Route  path='/' exact component={LoginPage} />
-        
-        <Route  path='/logout' exact component={LogoutPage} />
-        <Route  path='/error' exact component={ErrorPage} />
-        <Route  path='/test'  exact > <TestMain/> </Route>
-        { location.pathname!=="/" &&
-        <Route component={PageBase} />
-        }
+      <Router history={history} >
+        <Switch>
+          <Route  path='/' exact component={LoginPage} />
+          
+          <Route  path='/logout' exact component={LogoutPage} />
+          <Route  path='/firstend' exact component={FirstLoginEndPage} />
+          <Route  path='/error' exact component={ErrorPage} />
+          <Route  path='/test'  exact > <TestMain/> </Route>
+          { location.pathname!=="/" &&
+          <Route component={PageBase} />
+          }
         </Switch>      
-
+      </Router>
     </div>
   );
 }

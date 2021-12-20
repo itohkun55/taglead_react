@@ -52,7 +52,7 @@ const Styles=makeStyles({
 const PageBase=(props)=>{
 
     const dispatch=useDispatch();
-    const  error=useSelector(state=>state.error_control.errorFlg) ;
+    const  error=useSelector(state=>state.error_control.errorFlg,false) ;
     const [menuOpen,setMenuOpen]=useState(false);
     const [freetagOpen,setFreeTagOpen]=useState(false);
     const [formtagOpen,setformTagOpen]=useState(false);
