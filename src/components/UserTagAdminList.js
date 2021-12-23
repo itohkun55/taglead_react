@@ -14,6 +14,13 @@ import Typography from '@material-ui/core/Typography';
 
 import { TAG_TYPES,TAG_RANKS} from '../lib/TagTypeNames';
 import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 import {GetTagName} from './parts/ShowInfoSet';
 import { showTagAdmin, makeNewTagByAdmin, modifyTagByAdmin} from '../actions';
 
@@ -90,18 +97,18 @@ export const UserTagAdminColumn=(props)=>{
 
     const modeView=()=>{
         return (
-            <div>
-                <span>{props.data.strTagName}</span>
-                <span>{rank(tagRank).name}</span>
-                <span>{type(tagType).name}</span>
+            <TableRow component="th" scope="row">
+                <TableCell>{props.data.strTagName}</TableCell>
+                <TableCell align='right'>{rank(tagRank).name}</TableCell>
+                <TableCell align='right'>{type(tagType).name}</TableCell>
 
-                <span>
+                <TableCell align='right'>
                     <Button onClick={()=>onSelect()}
                         variant='contained'
                         label="登録">編集
                     </Button>
-                 </span>
-            </div>
+                 </TableCell>
+            </TableRow>
         )
     };
 
@@ -139,14 +146,13 @@ export const UserTagAdminColumn=(props)=>{
     const modeEdit=()=>{
         return(
             
-            <div>
-                {errorMsg!="" ?
-                    <div>{errorMsg}</div>
-                :
-                    <div/>
-                }
-                <div>
-                <span>
+            <TableRow component="th" scope="row">
+                <TableCell>
+                    {errorMsg!="" ?
+                        <div>{errorMsg}</div>
+                    :
+                        null
+                    }
                     <TextField 
                         //label="タグ名"
                         placeholder="タグの名称を入力"
@@ -156,8 +162,8 @@ export const UserTagAdminColumn=(props)=>{
                         variant="outlined"
                         disabled={false}
                         />
-                </span>
-                <span>
+                </TableCell>
+                <TableCell>
                     <FormControl className={classes.formControl}>
                         <NativeSelect
                         //value={props.data.numTagRank}
@@ -173,6 +179,8 @@ export const UserTagAdminColumn=(props)=>{
                             }
                         </NativeSelect>
                     </FormControl>
+                </TableCell>
+                <TableCell>
                     <FormControl className={classes.formControl}>
                         <NativeSelect
                         //value={props.data.numTagType}
@@ -189,30 +197,25 @@ export const UserTagAdminColumn=(props)=>{
                             
                         </NativeSelect>
                     </FormControl>
-
-                </span>
-                <span>
+                </TableCell>
+                
+                <TableCell>
                     <Button onClick={onSubmit}
                     variant='contained'
                     label="登録"
                     >登録</Button>
 
-                </span>
-                <span>
                     <Button onClick={onColumnCancel}
                     variant='contained'
                     label="キャンセル"
                     >キャンセル</Button>
-                </span>
-
-            </div>
-            </div>
+                </TableCell>
+            </TableRow>
         )
     }
 
     return (
-        <div>
-        {tagType==-1 ?
+         tagType==-1 ?
             <div/>
         :props.add ?
             modeEdit()
@@ -220,8 +223,6 @@ export const UserTagAdminColumn=(props)=>{
             modeEdit()
         :
             modeView()
-        }
-        </div>
     )
 
 }
@@ -316,15 +317,24 @@ const UserTagAdminList=()=>{
                 <div/>
             }
         
-            {
-            showArray.map((d)=>{
-                return (
-                <UserTagAdminColumn add={false} open={d.id==openid} onCancel={onCancel} onSelect={onColumnSelect}  data={d}/>
-            )
-        })
+        <TableContainer>
+            <Table >
+                <TableHead>
+                <TableRow>
+                    <TableCell>タグ名</TableCell>
+                    <TableCell align="right">重要度</TableCell>
+                    <TableCell align="right">種類</TableCell>
+                    <TableCell align="right">---</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                {showArray.map((d) => (
+                    <UserTagAdminColumn add={false} open={d.id==openid} onCancel={onCancel} onSelect={onColumnSelect}  data={d}/>
+                ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
 
-            }
- 
         </div>
 
     )
