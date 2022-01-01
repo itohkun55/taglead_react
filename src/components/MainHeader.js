@@ -35,6 +35,9 @@ const mainheaderStyle = makeStyles((theme) => ({
 
     },
     nav: {
+      
+//      display:"flex",
+//      justifyContent:"center",
       display: "grid",
       grid: "auto / auto-flow",
       padding: "3px",
@@ -78,9 +81,6 @@ const MainHeader=(props)=>{
     const location=useLocation();
     const [isBack,setIsBack]=useState(false);
 
-    const openSearch=()=>{
-      //showSearch(!search);
-    };
 
     useEffect(()=>{
 
@@ -101,7 +101,7 @@ const MainHeader=(props)=>{
         return (
             <div   >
               <AppBar position="fixed"  >
-                <Toolbar>
+                <Toolbar >
                   {isBack ?
                     <IconButton  onClick={()=>history.push("/"+prevPath)} ><ArrowBackIcon/></IconButton>
                     :
@@ -117,8 +117,6 @@ const MainHeader=(props)=>{
                           <NavLink to="/main" exact><div className={classes.a}><Typography variant='h6' gutterBottom >  一覧  </Typography></div></NavLink>
                           <NavLink to="/tag" exact><div className={classes.a}><Typography variant='h6' gutterBottom > タグ検索 </Typography></div></NavLink>
                       </span>
-                      
-                      <IconButton onClick={()=>openSearch()}  ><SearchIcon/></IconButton>
                     </div>
 
                   }

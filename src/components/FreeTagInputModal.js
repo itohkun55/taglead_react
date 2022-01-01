@@ -7,9 +7,11 @@ import {Modal,
     } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Fade } from '@material-ui/core';
+import { Cancel } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import {pushNewMemo,setReplyData} from '../actions';
 import {getTimeStampNow,checkHasContent} from '../lib/UtilityLibrary';
+import {ArrowDownwardIcon} from '@material-ui/icons/ArrowDownward';
 import TagInputList from './TagInputList';
 import SummaryMemo from './parts/SummaryMemo';
 import { DELETE_NEWFOLLOW_MODAL,DELETE_NEW_REPLY_MODAL } from '../lib/ActionTypeString';
@@ -32,6 +34,11 @@ const useStyles=makeStyles((theme)=>({
         border:"2px"
 
     },
+    closeModal: {
+        //position: "absolute",
+        top: 0,
+        right: 0
+    },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
@@ -47,7 +54,7 @@ const FreeTagInputModal=(props)=>{
 
     const classes=useStyles();
     const [selected,setSelected]=useState([]);
-    const [end,setEnd]=useState(false);
+    //const [end,setEnd]=useState(false);
     
     const dispatch = useDispatch();
     const[hasTime,setHasTime ]=useState(false);
@@ -56,6 +63,11 @@ const FreeTagInputModal=(props)=>{
     const [mainText,setMainText]=useState("");
     const textRef=useRef(null);
 
+
+    const [isReply,setIsReply]=useState(false); 
+    const [isFollow,setIsFollow] =useState(false);
+    const [defSelected,setDefSelected]=useState([]);
+
     useEffect(()=>{
         if ( selected.length===0||mainText.length===0 || (hasTime && registTime==="") ){
             setCanSubmit(false);
@@ -63,6 +75,19 @@ const FreeTagInputModal=(props)=>{
             setCanSubmit(true);
         }
     });
+    useEffect(()=>{
+        const sir=checkHasContent(props.reply_source);
+        setIsReply(sir);
+        const sif=checkHasContent(props.follow_data);
+        setIsFollow(sif);
+                
+        if (sir){
+            setDefSelected(  props.reply_source.strTaglist.split(","));
+        }else if(sif){
+            setDefSelected(props.follow_data.strTaglist.split(","));
+        }
+
+    },[props]);
 
     const inputCheck=(text)=>{
         setMainText(text);
@@ -74,11 +99,11 @@ const FreeTagInputModal=(props)=>{
         if (hasTime) timeS=registTime;
         console.log(timeS,hasTime);
         let follow=-1;
-        if(checkHasContent(props.reply_source)){
+        if(isReply){
 
             dispatch(setReplyData(tagArray.join(','),text,timeS,props.reply_source ));
         }else{
-            if (checkHasContent(props.follow_data)) follow=props.follow_data.id;
+            if (isFollow) follow=props.follow_data.id;
 
             dispatch(pushNewMemo(tagArray.join(','),text,timeS,follow ));    
         }
@@ -105,8 +130,8 @@ const FreeTagInputModal=(props)=>{
         setMainText("");
         props.onClose();
 
-        if(checkHasContent( props.follow_data )) dispatch({type:DELETE_NEWFOLLOW_MODAL});
-        if(checkHasContent(props.reply_source)) dispatch({type:DELETE_NEW_REPLY_MODAL});
+        if(isFollow) dispatch({type:DELETE_NEWFOLLOW_MODAL});
+        if(isReply) dispatch({type:DELETE_NEW_REPLY_MODAL});
     };
 
     return (
@@ -120,19 +145,20 @@ const FreeTagInputModal=(props)=>{
             closeAfterTransition
         >
         <Fade in={props.open}>
-            
             <Card className={classes.root}>
-                { checkHasContent( props.reply_source ) && 
+
+           <div onClick={()=>onClose()}><Cancel className={classes.closeModal}/></div> 
+                { isReply && 
                     <div>
                         <SummaryMemo data={props.reply_source}/>
-                        <div>下矢印</div>
+                        <div><ArrowDownwardIcon/> 返信元</div>
 
                     </div>
                 }
                 
 
-                <TagInputList setSelected={setSelected} end={end} />
-                { checkHasContent( props.follow_data ) && 
+                <TagInputList setSelected={setSelected} defSelected={defSelected} />
+                { isFollow && 
                     <div>
                     <div>転送</div>
                     <SummaryMemo data={props.follow_data}/>

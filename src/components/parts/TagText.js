@@ -7,6 +7,7 @@ const TagText=({tagtextarray})=>{
     const tag_list= useSelector(state=>state.auth_login.all_tag,[]);
 
     let ss="";
+    if (!tagtextarray) return (<span/>);
 
     return tagtextarray.split(",").map((d)=>{
 

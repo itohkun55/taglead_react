@@ -50,6 +50,7 @@ const TagInputList=(props)=>{
 
     const classes=useStyles();
     const [selected,setSelected]=useState([]);
+    const [defSelected,setDefSelected]=useState([]);
     const [value,setValue]=useState(0);
     const main_tag=useSelector(state=>state.auth_login.main_tag);
     const sub_tag=useSelector(state=>state.auth_login.sub_tag);
@@ -59,6 +60,14 @@ const TagInputList=(props)=>{
 
     const handleChange = (event, value) => {
         setValue(value);
+    };
+
+    const getTagData=(idlist)=>{
+        const res=[];
+        for (let s in idlist){
+            res.push(all_tag.find(el=>el.id===parseInt(idlist[s]))); 
+        }
+        return res;
     };
 
 
@@ -81,11 +90,18 @@ const TagInputList=(props)=>{
     };
 
     useEffect(() => {
-        if (props.end){
-            setSelected([]);
-        }
+        if(all_tag.length==0) return;
+        const def=getTagData(props.defSelected);
+        setSelected(def);
+        props.setSelected(def);
+    }, [props.defSelected,all_tag]);
+
+    // useEffect(() => {
+    //     if (props.end){
+    //         setSelected([]);
+    //     }
         
-    }, [props.end]);
+    // }, [props.end]);
 
     
     const TagSearchSet=()=>{
@@ -173,6 +189,7 @@ const TagInputList=(props)=>{
             <span>検索タグ:  </span>
             {selected.length>0 ?
                 selected.map((d)=>{
+                    
                     return (
                         <Chip 
                         
@@ -183,6 +200,8 @@ const TagInputList=(props)=>{
                             onClick={(e)=>onTagClick(d)}
                         />
                     )
+                
+
                 })
             :
             <span className={classes.nontag}>タグを1個以上選択してください</span>

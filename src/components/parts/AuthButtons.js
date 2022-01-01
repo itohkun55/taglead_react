@@ -6,7 +6,7 @@ import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState,useEffect } from "react";
-import {CONNECT_ERROR,ERROR_RESET, MEMO_END} from '../../lib/ActionTypeString';
+import {CONNECT_ERROR,ERROR_RESET, MEMO_END, RESET_AUTH} from '../../lib/ActionTypeString';
 
 
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -155,7 +155,8 @@ export const LogOutButton=(props)=>{
         localStorage.setItem("access_token", "");
         localStorage.setItem("refresh_token", "");
         dispatch({type:ERROR_RESET});
-        dispatch({type:MEMO_END})
+        dispatch({type:MEMO_END});
+        dispatch({type:RESET_AUTH});
         history.push("/logout");    
     };
     

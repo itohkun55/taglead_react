@@ -25,6 +25,7 @@ import { Typography } from '@material-ui/core';
 import TagFaces from '@material-ui/icons/TagFaces';
 
 import  {getDateMessage} from  '../lib/UtilityLibrary';
+import ExpandText from './parts/ExpandText';
 import {TagChipList} from './parts/TagChip';
 import {MAKE_NEWFOLLOW_MODAL,MAKE_NEW_REPLY_MODAL} from '../lib/ActionTypeString';
 import {hasreadCheck,hasfavCheck,editMemo, deleteMemo} from '../actions';
@@ -89,9 +90,9 @@ const useStyles = makeStyles((theme) => ({
     },
 
     followarea:{
-        marginLeft:"20%",
+        marginLeft:"5%",
         border:'2px solid #888',
-        width:"80%",
+        width:"90%",
         fontSize:"12px"
     },
 
@@ -167,31 +168,6 @@ const MemoColumn=({data,read,fav,rep=false})=>{
          return names.reduce((acc,value)=>acc+","+value);
      };
 
-
-     const MainText=()=>{
-        const txtSource=data.strMainText;
-
-        if (txtSource.length<TEXT_LIMIT) return (
-            <div style={{whiteSpace: 'pre-line'}}>
-               <Typography variant='body1' >{txtSource}</Typography>
-            </div>); 
-
-        return (
-            <div>
-            {expanded?
-                <div>
-                    <span style={{whiteSpace: 'pre-line'}} ><Typography variant='body1' >{txtSource}</Typography></span>
-                    <span onClick={()=>setExpanded(false)} ><Typography variant='body1' ><b>元に戻す</b></Typography></span>
-                </div>
-            :
-            <div>
-                <span style={{whiteSpace: 'pre-line'}}><Typography variant='body1' >{txtSource.substring(0,TEXT_LIMIT)}....</Typography></span>
-                <span onClick={()=>setExpanded(true)} ><Typography variant='body1' ><b>残りを開く</b></Typography></span>
-            </div>
-            }
-            </div>
-        )
-    };
 
      const MemoManipulate=()=>{
          const openFunc=()=>{
@@ -328,7 +304,7 @@ const MemoColumn=({data,read,fav,rep=false})=>{
                             { data.boolHasDeleted ?
                                 <div className={classes.deleted}><Typography variant='h6' >このメモは削除されました</Typography></div>
                               :
-                                MainText()
+                                <ExpandText txtSource={data.strMainText} limit={TEXT_LIMIT} />
                               
                             } 
 
@@ -339,7 +315,7 @@ const MemoColumn=({data,read,fav,rep=false})=>{
 
                     { data.keyFollowId &&
                         <div className={classes.followarea}>
-                        < div><div>{getDateMessage(data.keyFollowId.dateRegist) }</div><div> <TagChipList listStr={data.keyFollowId.strTaglist} /> </div> <div>{data.keyFollowId.strMainText}</div></div>
+                        < div><div>{getDateMessage(data.keyFollowId.dateRegist) }</div><div> <TagChipList listStr={data.keyFollowId.strTaglist} /> </div> <ExpandText txtSource={data.keyFollowId.strMainText} limit={TEXT_LIMIT}/></div>
                         </div>
                     }
                     {bdelete ?

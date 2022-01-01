@@ -92,6 +92,7 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
             
             return  { ...state,
                 firstend:true,
+                facName:userConf.facName,
                 userId:userConf.userId,
                 username:userConf.username,
                 userRank:userConf.userRank,

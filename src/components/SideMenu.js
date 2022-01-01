@@ -27,15 +27,15 @@ const menuStyle=makeStyles((theme)=>({
       
       header: {
         color: "#ffffff",
-        borderLeft: "solid 6px #2d8fdd",/*左側の線*/
-        background: "#2d8fdd",/*背景色*/
+        borderLeft: "solid 6px #3f51b5",/*左側の線*/
+        background: "#3f51b5",/*背景色*/
         marginBottom: "3px",/*下のバーとの余白*/
         lineHeight: 1.5,
         padding: "0.5em"
       },
       column: {
-        color: "#2d8fdd",
-        borderLeft: "solid 6px #2d8fdd",/*左側の線*/
+        color: "#3f51b5",
+        borderLeft: "solid 6px #3f51b5",/*左側の線*/
         background: "#f1f8ff",/*背景色*/
         marginBottom: "3px",/*下のバーとの余白*/
         lineHeight: 1.5,
@@ -49,6 +49,7 @@ const SideMenu=({onClose=null})=>{
     const classes=menuStyle();
     const history=useHistory();
     const username=useSelector(state=>state.auth_login.username);
+    const facName=useSelector(state=>state.auth_login.facName);
     const userRank=useSelector(state=>state.auth_login.userRank);
 
     const onMove=(path="none")=>{
@@ -72,6 +73,7 @@ const SideMenu=({onClose=null})=>{
             <div className={classes.listShelf}>
 
             <div className={classes.header}>
+              <div><Typography variant='caption'>-{facName}-</Typography></div>
               <div><Typography variant='button'>{username}</Typography></div>
             </div>
             {
