@@ -11,7 +11,7 @@ import { Cancel } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import {pushNewMemo,setReplyData} from '../actions';
 import {getTimeStampNow,checkHasContent} from '../lib/UtilityLibrary';
-import {ArrowDownwardIcon} from '@material-ui/icons/ArrowDownward';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import TagInputList from './TagInputList';
 import SummaryMemo from './parts/SummaryMemo';
 import { DELETE_NEWFOLLOW_MODAL,DELETE_NEW_REPLY_MODAL } from '../lib/ActionTypeString';
@@ -76,10 +76,15 @@ const FreeTagInputModal=(props)=>{
         }
     });
     useEffect(()=>{
+        console.log("COME MODAL");
         const sir=checkHasContent(props.reply_source);
         setIsReply(sir);
+        
+        console.log("COME MODAL sir",props.reply_source);
         const sif=checkHasContent(props.follow_data);
         setIsFollow(sif);
+        
+        console.log("COME MODAL sif",props.follow_data);
                 
         if (sir){
             setDefSelected(  props.reply_source.strTaglist.split(","));
@@ -151,7 +156,7 @@ const FreeTagInputModal=(props)=>{
                 { isReply && 
                     <div>
                         <SummaryMemo data={props.reply_source}/>
-                        <div><ArrowDownwardIcon/> 返信元</div>
+                        <div><ArrowDownward/> 返信元</div>
 
                     </div>
                 }
