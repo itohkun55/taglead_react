@@ -29,9 +29,10 @@ const styles=makeStyles((theme)=>({
 );
 
 export const LoginButton=({red, callback})=>{
+    console.log("LOGIN_URL :",LOGIN_URL);
     const dispatch = useDispatch();
     const history=useHistory();
-    const LOGIN_URL=`${API_URL}/auth/convert-token`;
+    //const LOGIN_URL=`${API_URL}/auth/convert-token`;
     const classes=styles();
 
     const SetAuthConnection = (response) => {
