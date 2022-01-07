@@ -5,30 +5,13 @@ import {TYPE_TAG_GUEST,TYPE_TAG_MEMBER} from '../../lib/TagTypeNames';
 import FaceIcon from '@material-ui/icons/Face';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import { makeStyles,createStyles,Theme } from '@material-ui/core';
+import GlobalCSS from '../../lib/GlobalCSS';
 
 const useStyles = makeStyles((theme) =>
-  ({
-    funcColor:{
-        color:"red",
-      borderColor:"red"
-    }, 
-    staffColor:{
-      color:"green",
-      borderColor:"green"
-    },
-    guestColor:{
-      color:"gold",
-      borderColor:"gold"
-    },
-    placeColor:{
-        color:"blue",
-        borderColor:"blue"
-    },
-    actionColor:{
-        color:"blue",
-        borderColor:"blue"
-    },
-  }));
+   (
+       GlobalCSS()
+    
+));
 
 export const TagChip=({d})=>{
     const tag_source=useSelector(state=>state.auth_login.all_tag);

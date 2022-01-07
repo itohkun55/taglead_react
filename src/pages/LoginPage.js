@@ -19,6 +19,16 @@ const styles=makeStyles((theme)=>({
 }));
 
 const LoginPage = () => {
+
+   const history=useHistory();
+   const checklogin=localStorage.getItem('access_token');
+
+   if (checklogin && checklogin!=="" ){
+      history.push("/main");
+      
+      return(<div/>);
+   }
+
    const classes=styles();
    const CardContent=(
       <CardMedia  height={"50%"} component="img" image={`${process.env.PUBLIC_URL}/tagleadlogo.png`} />

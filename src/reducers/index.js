@@ -108,6 +108,8 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
         case USER_CONFIG_LIST:
         
             return  { ...state,
+                main_tag:result.main_tag,
+                sub_tag:result.sub_tag,
                 user_config:result.user_config,
             };
         case CHANGE_USER_CONFIG:

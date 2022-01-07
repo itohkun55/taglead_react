@@ -62,6 +62,7 @@ const tagRanks={
 export const UserTagAdminColumn=(props)=>{
     const [viewmode,setViewMode]=useState(true);
     
+    const all_tag=useSelector(state=>state.auth_login.all_tag,[]);
     const changFlg=useSelector(state=>state.tag_admin.change,0);
     const [tagName,setTagName]=useState("");
     const [tagRank,setTagRank]=useState(-1);
@@ -126,6 +127,11 @@ export const UserTagAdminColumn=(props)=>{
 
         if (tagType==-1 || tagType==0){
             setErrorMsg("タグの種類が未設定です"+ String(tagType) );
+            return;
+        }
+
+        if(all_tag.some(data=>data.strTagName===tagName)){
+            setErrorMsg("既に存在するタグです" );
             return;
         }
 
