@@ -31,7 +31,7 @@ export const TagChip=({d})=>{
     let name="";
     
     if( !tagdata|| typeof(tagdata)=='undefined'){
-        return (<Chip label={"不明"}/>)
+        return (<Chip label={"不明"} />);
     }else if (sd.length==2){
         name= tagdata.strTagName+":"+sd[1];
     }else{

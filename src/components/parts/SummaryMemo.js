@@ -5,6 +5,7 @@ import TagText  from './TagText';
 import ExpandText from './ExpandText';
 import {GetUserName}  from './ShowInfoSet';
 import { Typography } from '@material-ui/core';
+import { TEXT_LIMIT } from '../../lib/ServiceConfig';
 const useStyles=makeStyles((theme)=>({
 
     // root: {
@@ -64,7 +65,6 @@ const useStyles=makeStyles((theme)=>({
 
 const SummaryMemo=(props)=>{
     const classes=useStyles();
-    const TEXT_LIMIT=40;
 
     return (
     

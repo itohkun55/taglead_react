@@ -145,7 +145,7 @@ export const deleteMemo=(id)=>dispatch=>{
 
 export const loadUserConfig=()=>dispatch=>{
     const resFunc=(res)=>{
-        return {user_config:res};
+        return {res:res};
     };
     APICallController.callAPI("tagconfig",{},USER_CONFIG_LIST,resFunc,dispatch);    
 

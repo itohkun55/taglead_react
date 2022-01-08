@@ -97,10 +97,10 @@ const FormedTagPutModal=(props)=>{
         let phaseNow=selected.reduce((acc,value)=>(acc<value.numTagPhase ? value.numTagPhase : acc),0);
 
         const showArray=(str)=>{
-            const s=str.split(",")
+            const s=str.split(",");
             if (s===[]) return [];
             return s.map((d)=>parseInt(d));
-        }
+        };
   
         tag_source.forEach(element => {
             //要素のdelに現在
@@ -152,7 +152,6 @@ const FormedTagPutModal=(props)=>{
         const la=ss.pop();
         setDefs(ss);
         setLastOne(la);
-
     };
 
 
@@ -186,13 +185,13 @@ const FormedTagPutModal=(props)=>{
 
         //console.log("restagarray",restagarray);
         dispatch(pushNewFormedMemo(restagarray.join(","),text));
-    }
+    };
 
     const closeAction=()=>{
         setSelected([]);
         setDefs([]);
         setLastOne({});
-    }
+    };
 
     const onEnd=(text)=>{
         //console.log(" ここで終わり　処理をDispatchする ");
@@ -209,8 +208,7 @@ const FormedTagPutModal=(props)=>{
     const handleClose=()=>{
         closeAction();
         props.onClose();
-    }
-
+    };
 
     const TagButton=(data)=>{
        return (
@@ -223,7 +221,7 @@ const FormedTagPutModal=(props)=>{
                 onClick={(e)=>onClick(data)}
             />
 
-       )
+       );
     };
 
     //複数行入力のテキストボックスが分岐で作成できなかったので別関数にする

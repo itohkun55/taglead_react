@@ -106,11 +106,12 @@ const auth_login=(state=INIT_AUTH_STATE,action=INIT_ACTION)=>{
             return INIT_AUTH_STATE;
     
         case USER_CONFIG_LIST:
+            const userConfSet=result.res;
         
             return  { ...state,
-                main_tag:result.main_tag,
-                sub_tag:result.sub_tag,
-                user_config:result.user_config,
+                main_tag:userConfSet.main,
+                sub_tag:userConfSet.sub,
+                user_config:userConfSet.user_config,
             };
         case CHANGE_USER_CONFIG:
             //こまめに値を返さないと表示がずれるので現状を返す
@@ -143,22 +144,16 @@ const tag_admin=(state=INIT_TAG_ADMIN_STATE,action=INIT_ACTION)=>{
             return {
                 ...state,
                 change:action.result.change
-            }
-    
+            };
         default:
             return state;
-
-
-    }
-    
-}
-
+    }    
+};
 
 const INIT_USER_TAG={
     user_config:[]
 
-}
-
+};
 
 
 //各ユーザーのログイン時のやり取り
@@ -188,7 +183,7 @@ const memo_main=(state=INIT_MEMO_MAIN_STATE,action=INIT_ACTION)=>{
                 timeline:result.timeline,
                 read:result.read,
                 fav:result.fav,
-                endflg:result.endFlg
+                endflg:result.endflg
             }; 
             
         case LOAD_NEW_MEMO:
@@ -248,6 +243,16 @@ const memo_main=(state=INIT_MEMO_MAIN_STATE,action=INIT_ACTION)=>{
     }
 };
 
+
+const INIT_TAGGED_SEARCH={
+    timeline:[],
+    read:[],
+    fav:[],
+    endflg:false,
+    change:0
+};
+
+
 export const tagged_main=(state=INIT_TAGGED_SEARCH,action=INIT_ACTION)=>{
     
     const result=action.result;
@@ -300,23 +305,13 @@ const show_favorite=(state=INIT_MEMO_STATE,action)=>{
                 timeline:action.result.timeline,
                 read:action.result.read,
                 fav:action.result.fav,
-                endflg:action.result.endFlg
+                endflg:action.result.endflg
             }; 
         default:
             return state;
     }
 };
 
-
-
-
-const INIT_TAGGED_SEARCH={
-    timeline:[],
-    read:[],
-    fav:[],
-    endflg:false,
-    change:0
-};
 
 const INIT_REPLY_MAIN={
     self_data:{},
@@ -352,9 +347,8 @@ export const follow_main=(state=INIT_FOLLOW_ACTION,action)=>{
             };
         default:
             return state;
-
     }
-}
+};
 
 
 export const reply_main=(state=INIT_REPLY_MAIN,action)=>{
@@ -409,17 +403,14 @@ export const reply_main=(state=INIT_REPLY_MAIN,action)=>{
                 future_thread:future_thread,
                 read:action.result.read,
                 fav:action.result.fav,
-                endFlg:true,
+                endflg:true,
                 load_flg:true
                 
             };
         default:
             return state;
-
     }
-}
-
-
+};
 
 const INIT_NOTICE={
     notices:[],

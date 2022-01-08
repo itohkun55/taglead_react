@@ -33,6 +33,20 @@ const useStyles = makeStyles((theme) => ({
         },
         padding:"0px 0px 0px"
       },
+    
+    main:{
+        width:"85%",
+        padding: "0.5em 1em",
+        margin: "2em 0",
+        color: "#5d627b",
+        background: "white",
+        borderTop: "solid 5px #5d627b",
+        boxShadow: "0 3px 5px rgba(0, 0, 0, 0.22)",
+        p:{
+            margin: 0, 
+            padding: 0    
+        }
+    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
@@ -74,7 +88,7 @@ export const UserTagConfigColumn=(props)=>{
     };
 
     return (
-        <div  >
+        <div className={classes.main} >
         <span> <GetTagName id={props.data.keyTag}/> </span>
         <span>
             <FormControl className={classes.formControl}>
@@ -124,9 +138,11 @@ const UserTagConfigList=()=>{
     }, []);
 
     useEffect(() => {
-        //console.log("get config change");
+        console.log("get config change");
+        console.log(uConfigList);
     }, [uConfigList]);
 
+    
     const onResetClick=()=>{
         dispatch(resetUserConfig()); 
     }

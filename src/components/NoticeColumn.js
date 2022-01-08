@@ -13,6 +13,7 @@ import {Box}  from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { TEXT_LIMIT } from '../lib/ServiceConfig';
 import {getUserName,getDateMessage}  from  '../lib/UtilityLibrary';
 const useStyles = makeStyles((theme) => ({
 
@@ -46,9 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NoticeColumn=({data})=>{
-    //console.log(props);
-    const TEXT_LIMIT=40;
-
     
     const setHeaderText=(txt)=>{
         return txt.substring(0,TEXT_LIMIT)+"....";
@@ -56,7 +54,7 @@ const NoticeColumn=({data})=>{
     
     const userlist = useSelector(state => state.auth_login.user_list);
     const classes=useStyles();
-    const [maintext,setMainText] =useState(setHeaderText(data.keyMemoMain.strMainText));
+    const maintext =setHeaderText(data.keyMemoMain.strMainText);
  
     const [senderMsg,setSenderMsg]= useState("");
 
@@ -80,7 +78,7 @@ const NoticeColumn=({data})=>{
                 <Box className={classes.memo}>
                     <Link underline="none" to={"/reply/" +  data.keyMemoMain.id} replace >
                         <div className={classes.mainExp}>
-                        {getDateMessage(data.keyMemoMain.dateRegist) } : {senderMsg}  
+                            {getDateMessage(data.keyMemoMain.dateRegist) } : {senderMsg}  
                         </div>
                         <div className={classes.subExp}>{maintext} </div>
                     </Link>

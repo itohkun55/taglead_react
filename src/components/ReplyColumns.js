@@ -6,7 +6,7 @@
 //ヘッダーから開閉イベントを受けたら詳細をアニメーションで展開する
 
 import React ,{useEffect, useState} from 'react';
-import  {useSelector} from 'react-redux'
+import  {useSelector} from 'react-redux';
 import {Collapse,IconButton,Box}  from '@material-ui/core';
 
 import ExpandMoreIcon  from '@material-ui/icons/ExpandMore';
@@ -124,7 +124,7 @@ const ReplyColumn=({data,boxstyle,mark})=>{
         }else{
             setMainText(setHeaderText(dd.strMainText) );
         }
-    }
+    };
 
     const onExpanded=()=>{
         // if(!expanded){
@@ -153,12 +153,12 @@ const ReplyColumn=({data,boxstyle,mark})=>{
     const getNames=(arr)=>{
         const ars=String(arr).split(",");
         const names=ars.map((d)=>{
-           const tg=user_list.find((el)=>el.id===parseInt(d))
+           const tg=user_list.find((el)=>el.id===parseInt(d));
            return tg.strName;
-        })
+        });
         
-        return names.reduce((acc,value)=>acc+","+value)
-    }
+        return names.reduce((acc,value)=>acc+","+value);
+    };
 
 
     useEffect(()=>{

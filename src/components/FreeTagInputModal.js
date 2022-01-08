@@ -69,30 +69,26 @@ const useStyles=makeStyles((theme)=>({
 
 const CloseCheckModal=(props)=>{
     const classes=useStyles();
-
-
     return(
         <div >
-        <Modal
-            
-            hideBackdrop
-            open={props.open}
-            onClose={props.onClose}
-            aria-labelledby="child-modal-title"
-            aria-describedby="child-modal-description"
-        >
-            <Box className={classes.checkModal}>
-                <div>
-                    <Typography variant='h6' >記入途中ですが閉じますか？</Typography>
-                </div>
-                <div>
-                    <span><Button variant="contained" onClick={props.onClose}>閉じる</Button></span>
-                    <span><Button  variant="contained" onClick={props.onCancel}>キャンセル</Button></span>
-                </div>
-        </Box>
-      </Modal>
-      </div>
- 
+            <Modal
+                hideBackdrop
+                open={props.open}
+                onClose={props.onClose}
+                aria-labelledby="child-modal-title"
+                aria-describedby="child-modal-description"
+            >
+                <Box className={classes.checkModal}>
+                    <div>
+                        <Typography variant='h6' >記入途中ですが閉じますか？</Typography>
+                    </div>
+                    <div>
+                        <span><Button variant="contained" onClick={props.onClose}>閉じる</Button></span>
+                        <span><Button  variant="contained" onClick={props.onCancel}>キャンセル</Button></span>
+                    </div>
+                </Box>
+            </Modal>
+        </div>
     )
 
 }
@@ -100,11 +96,8 @@ const CloseCheckModal=(props)=>{
 
 const FreeTagInputModal=(props)=>{
     
-
     const classes=useStyles();
     const [selected,setSelected]=useState([]);
-    //const [end,setEnd]=useState(false);
-    
     const dispatch = useDispatch();
     const[hasTime,setHasTime ]=useState(false);
     const [registTime,setRegistTime]=useState("");
@@ -119,28 +112,24 @@ const FreeTagInputModal=(props)=>{
     const [defSelected,setDefSelected]=useState([]);
 
     useEffect(()=>{
-        if ( selected.length===0||mainText.length===0 || (hasTime && registTime==="") ){
-            setCanSubmit(false);
-        }else{
-            setCanSubmit(true);
-        }
-    });
+        const submitCheck=selected.length===0||mainText.length===0 || (hasTime && registTime==="");
+        
+        setCanSubmit(!submitCheck);
+    },[selected,mainText,hasTime,registTime]);
+    
     useEffect(()=>{
-        console.log("COME MODAL");
         const sir=checkHasContent(props.reply_source);
         setIsReply(sir);
         
-        console.log("COME MODAL sir",props.reply_source);
         const sif=checkHasContent(props.follow_data);
         setIsFollow(sif);
         
-        console.log("COME MODAL sif",props.follow_data);
-                
         if (sir){
             setDefSelected(  props.reply_source.strTaglist.split(","));
         }else if(sif){
             setDefSelected(props.follow_data.strTaglist.split(","));
         }
+
 
     },[props]);
 
@@ -184,6 +173,7 @@ const FreeTagInputModal=(props)=>{
 
     const closeAction=()=>{
         setSelected([]);
+        setDefSelected([]);
         setCheckClose(false);
         setRegistTime("");
         setHasTime(false);
@@ -210,16 +200,16 @@ const FreeTagInputModal=(props)=>{
                 <CloseCheckModal open={checkClose} onClose={()=>closeAction()} onCancel={()=>setCheckClose(false)} />
 
            <div onClick={()=>onClose()}><Cancel className={classes.closeModal}/></div> 
+                {/* 返信の場合の表示 */}
                 { isReply && 
                     <div>
                         <SummaryMemo data={props.reply_source}/>
                         <div><span><ArrowDownward/></span> <span><Typography variant='h6'>返信元</Typography></span>  </div>
-
                     </div>
                 }
                 
-
                 <TagInputList setSelected={setSelected} defSelected={defSelected} />
+                {/* 転送の場合の表示 */}
                 { isFollow && 
                     <div>
                     <span><FormatQuote/><Typography variant='h6'>転送</Typography></span>
@@ -258,12 +248,7 @@ const FreeTagInputModal=(props)=>{
             </Card>
         </Fade>
         </Modal>
-
     )
-        
-
-
-
 };
 
 export default FreeTagInputModal;

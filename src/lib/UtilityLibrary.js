@@ -17,7 +17,7 @@ export const getTagInfo=(list,id)=>{
     if(!res) return {id:-1,　strTagName:"存在しないタグ"};
 
     return res;
-}
+};
 
 export const getTagNames=(tag_list,strArray)=>{
     const strs=strArray.split(",");
@@ -40,7 +40,7 @@ export const getDateMessage=(date)=>{
             return "0"+String(ms);
         }
         return String(ms);
-    }
+    };
 
     if(lessd<0){
         return  "予定 :"+dd.getFullYear()+"年"+parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+mmE(dd.getMinutes());

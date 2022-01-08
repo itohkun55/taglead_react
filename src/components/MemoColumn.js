@@ -28,6 +28,7 @@ import  {getDateMessage} from  '../lib/UtilityLibrary';
 import ExpandText from './parts/ExpandText';
 import {TagChipList} from './parts/TagChip';
 import {MAKE_NEWFOLLOW_MODAL,MAKE_NEW_REPLY_MODAL} from '../lib/ActionTypeString';
+import { TEXT_LIMIT } from '../lib/ServiceConfig';
 import {hasreadCheck,hasfavCheck,editMemo, deleteMemo} from '../actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -123,7 +124,6 @@ const useStyles = makeStyles((theme) => ({
 
 const MemoColumn=({data,read,fav,rep=false})=>{
     //console.log(props);
-    const TEXT_LIMIT=40;
     const [anchorEl,setAnchorEl]=useState(null);
     const menuOpen=Boolean(anchorEl);
 
@@ -173,7 +173,7 @@ const MemoColumn=({data,read,fav,rep=false})=>{
          const openFunc=()=>{
             setEditable(true);
             setAnchorEl(null);
-         }
+         };
     
         const menuClick=(e)=>{
             setAnchorEl(e.currentTarget);            
@@ -181,11 +181,11 @@ const MemoColumn=({data,read,fav,rep=false})=>{
 
         const menuClose=()=>{
             setAnchorEl(null);
-        }
+        };
         const startDelete=()=>{
             setDelete(true);
             setAnchorEl(null);
-        }
+        };
 
          return(
              <span>

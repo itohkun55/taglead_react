@@ -1,23 +1,17 @@
 import {useState,useEffect} from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     Chip,
     Tab,
     Tabs,
     TextField
     } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { getTagInfo } from '../lib/UtilityLibrary';
-
-
 
 const useStyles=makeStyles((theme)=>({
 
     root: {
-        //display: 'flex',
-       // justifyContent: 'center',
         flexWrap: 'wrap',
         '& > *': {
           margin: theme.spacing(0.5),
@@ -50,7 +44,6 @@ const TagInputList=(props)=>{
 
     const classes=useStyles();
     const [selected,setSelected]=useState([]);
-    const [defSelected,setDefSelected]=useState([]);
     const [value,setValue]=useState(0);
     const main_tag=useSelector(state=>state.auth_login.main_tag);
     const sub_tag=useSelector(state=>state.auth_login.sub_tag);
@@ -88,17 +81,12 @@ const TagInputList=(props)=>{
     };
 
     useEffect(() => {
-        if(all_tag.length==0) return;
+        if(all_tag.length===0) return;
         const def=getTagData(props.defSelected);
         setSelected(def);
         props.setSelected(def);
+        //console.log("defselected in taglist",def);
     }, [props.defSelected,all_tag]);
-
-    useEffect(() => {
-        return setSelected([])
-        
-    }, [props.end]);
-
     
     const TagSearchSet=()=>{
         const onChange=(e)=>{
@@ -137,11 +125,8 @@ const TagInputList=(props)=>{
                 }
                 </div>
             </div>
-
         );
     }
-
-
 
     const makeTagList=(list)=>{
     
@@ -187,8 +172,7 @@ const TagInputList=(props)=>{
                 selected.map((d)=>{
                     
                     return (
-                        <Chip 
-                        
+                        <Chip                         
                             key={d.id}  
                             variant='default' 
                             color={d.numTagType=== 1 ? "secondary" : d.numTagType=== 2 ? "primary" : "default" }
@@ -196,8 +180,6 @@ const TagInputList=(props)=>{
                             onClick={(e)=>onTagClick(d)}
                         />
                     )
-                
-
                 })
             :
             <span className={classes.nontag}>タグを1個以上選択してください</span>
