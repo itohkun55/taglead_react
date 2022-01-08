@@ -34,9 +34,16 @@ export const getDateMessage=(date)=>{
     const nowdd=new Date();
 
     const lessd=nowdd-dd;
+    //ModifyMinuteExpression
+    const mmE=(ms)=>{
+        if (ms<10){
+            return "0"+String(ms);
+        }
+        return String(ms);
+    }
 
     if(lessd<0){
-        return  "予定 :"+dd.getFullYear()+"年"+parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+dd.getMinutes();
+        return  "予定 :"+dd.getFullYear()+"年"+parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+mmE(dd.getMinutes());
   
     }else if(lessd<1000*60){
         return "数秒前";
@@ -48,11 +55,11 @@ export const getDateMessage=(date)=>{
         return  Math.round(lessd/(1000*60*60)) + "時間前";
 
     }else if (lessd<1000*60*60*48 &&   nowdd.getDate()-dd.getDate()===1 ){
-        return  "昨日"+ dd.getHours() + "時"+ dd.getMinutes() + "分"; 
+        return  "昨日"+ dd.getHours() + "時"+ mmE(dd.getMinutes()) + "分"; 
     }else if( dd.getFullYear()===nowdd.getFullYear()){
-        return parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+dd.getMinutes();
+        return parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+mmE(dd.getMinutes());
     }else{
-        return dd.getFullYear()+"年"+parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+dd.getMinutes();
+        return dd.getFullYear()+"年"+parseInt(1+dd.getMonth())+"月"+dd.getDate()+"日 "+dd.getHours()+":"+mmE(dd.getMinutes());
     }
 };
 

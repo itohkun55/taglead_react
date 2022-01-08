@@ -3,8 +3,10 @@ import { useDispatch } from 'react-redux';
 import {Modal,
     TextField,
     Button,
-    Card,
+    Box,
+    Card
     } from '@material-ui/core';
+
 import Typography from '@material-ui/core/Typography';
 import { Fade } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
@@ -12,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {pushNewMemo,setReplyData} from '../actions';
 import {getTimeStampNow,checkHasContent} from '../lib/UtilityLibrary';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import FormatQuote from '@material-ui/icons/FormatQuote';
 import TagInputList from './TagInputList';
 import SummaryMemo from './parts/SummaryMemo';
 import { DELETE_NEWFOLLOW_MODAL,DELETE_NEW_REPLY_MODAL } from '../lib/ActionTypeString';
@@ -43,10 +46,56 @@ const useStyles=makeStyles((theme)=>({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
         width: 200,
+        
       },
+
+    checkModal:{
+        position:"absolute",
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        backgroundColor: '#ffffff',
+        padding:"15px",
+        spacing:"5px",
+        top:"30%",
+        left:"50%",
+        border: '1px solid #000',
+        borderRadius:"5px",
+
+        boxShadow: 24
+    }
     
 
 }));
+
+const CloseCheckModal=(props)=>{
+    const classes=useStyles();
+
+
+    return(
+        <div >
+        <Modal
+            
+            hideBackdrop
+            open={props.open}
+            onClose={props.onClose}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+        >
+            <Box className={classes.checkModal}>
+                <div>
+                    <Typography variant='h6' >記入途中ですが閉じますか？</Typography>
+                </div>
+                <div>
+                    <span><Button variant="contained" onClick={props.onClose}>閉じる</Button></span>
+                    <span><Button  variant="contained" onClick={props.onCancel}>キャンセル</Button></span>
+                </div>
+        </Box>
+      </Modal>
+      </div>
+ 
+    )
+
+}
 
 
 const FreeTagInputModal=(props)=>{
@@ -62,6 +111,7 @@ const FreeTagInputModal=(props)=>{
     const [canSubmit,setCanSubmit]=useState(false);
     const [mainText,setMainText]=useState("");
     const textRef=useRef(null);
+    const [checkClose,setCheckClose]=useState(false);
 
 
     const [isReply,setIsReply]=useState(false); 
@@ -99,6 +149,7 @@ const FreeTagInputModal=(props)=>{
     };
 
     const onSubmit=(text)=>{
+
         const tagArray= selected.map((d)=>d.id);
         let timeS=getTimeStampNow();
         if (hasTime) timeS=registTime;
@@ -119,6 +170,10 @@ const FreeTagInputModal=(props)=>{
     };
 
     const onClose=()=>{
+        if (mainText!==""){
+            setCheckClose(true)
+            return;
+        }
         closeAction();
     };
 
@@ -129,6 +184,7 @@ const FreeTagInputModal=(props)=>{
 
     const closeAction=()=>{
         setSelected([]);
+        setCheckClose(false);
         setRegistTime("");
         setHasTime(false);
         setCanSubmit(false);
@@ -151,12 +207,13 @@ const FreeTagInputModal=(props)=>{
         >
         <Fade in={props.open}>
             <Card className={classes.root}>
+                <CloseCheckModal open={checkClose} onClose={()=>closeAction()} onCancel={()=>setCheckClose(false)} />
 
            <div onClick={()=>onClose()}><Cancel className={classes.closeModal}/></div> 
                 { isReply && 
                     <div>
                         <SummaryMemo data={props.reply_source}/>
-                        <div><ArrowDownward/> 返信元</div>
+                        <div><span><ArrowDownward/></span> <span><Typography variant='h6'>返信元</Typography></span>  </div>
 
                     </div>
                 }
@@ -165,7 +222,7 @@ const FreeTagInputModal=(props)=>{
                 <TagInputList setSelected={setSelected} defSelected={defSelected} />
                 { isFollow && 
                     <div>
-                    <div>転送</div>
+                    <span><FormatQuote/><Typography variant='h6'>転送</Typography></span>
                     <SummaryMemo data={props.follow_data}/>
                     </div>
                 }

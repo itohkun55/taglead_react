@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TagText  from './TagText'; 
 import ExpandText from './ExpandText';
 import {GetUserName}  from './ShowInfoSet';
+import { Typography } from '@material-ui/core';
 const useStyles=makeStyles((theme)=>({
 
     // root: {
@@ -53,6 +54,9 @@ const useStyles=makeStyles((theme)=>({
             color: "#888888",
             fontSize: "0.9em"
         }
+    },
+    backMsg :{
+        textAlign:"right"
     }
 
 }));
@@ -65,9 +69,10 @@ const SummaryMemo=(props)=>{
     return (
     
         <div className={classes.quote}>
-            <div><span > { getDateMessage(props.data.datePublish) }</span> <GetUserName  suffix={"より"}  id={props.data.keySender}/></div>
             < div><span>{getDateMessage(props.data.dateRegist) }</span><span> <TagText tagtextarray={props.data.strTaglist}/> </span></div>
              <div><ExpandText txtSource={props.data.strMainText} limit={TEXT_LIMIT} /></div>
+             <div className={classes.backMsg}><div  > <Typography variant="caption" > { getDateMessage(props.data.datePublish) }</Typography></div> <div><GetUserName  suffix={"より"}  id={props.data.keySender}/></div></div>
+            
         </div>
         
     )

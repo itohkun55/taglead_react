@@ -84,8 +84,6 @@ const TagInputList=(props)=>{
             nowselected=[...selected,data];
         }
         setSelected(nowselected);
-        console.log(nowselected);
-        //dispatch(getTaggedData(nowselected,0));
         props.setSelected(nowselected);
     };
 
@@ -96,12 +94,10 @@ const TagInputList=(props)=>{
         props.setSelected(def);
     }, [props.defSelected,all_tag]);
 
-    // useEffect(() => {
-    //     if (props.end){
-    //         setSelected([]);
-    //     }
+    useEffect(() => {
+        return setSelected([])
         
-    // }, [props.end]);
+    }, [props.end]);
 
     
     const TagSearchSet=()=>{
