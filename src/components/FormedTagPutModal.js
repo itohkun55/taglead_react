@@ -2,7 +2,9 @@ import {useState,useEffect,useRef} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 
 import Chip from '@material-ui/core/Chip';
-import {Button,TextField, Typography} from '@material-ui/core';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import {Button,TextField, Typography,InputLabel} from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import {pushNewFormedMemo} from '../actions';
@@ -11,7 +13,8 @@ import {TAG_DATE_INPUT,
         TAG_NUMBER_INPUT, 
         TAG_TEXT_INPUT,
         TAG_TIME_INPUT,
-        TAG_MULTILINE_INPUT
+        TAG_MULTILINE_INPUT,
+        TAG_SELECT_BOX
     } from  '../lib/TagTypeNames';
 
 const useStyles=makeStyles((theme)=>({
@@ -62,6 +65,9 @@ const FormedTagPutModal=(props)=>{
     const [defs,setDefs]=useState([]);
     //最後のタグ
     const [lastOne,setLastOne]= useState({});
+
+    //selectboxに保存されている値
+    const [selectPool,setSelectPool]=useState("");
 
     const textRef=useRef(null);
     const textRefMain=useRef(null);
@@ -172,6 +178,7 @@ const FormedTagPutModal=(props)=>{
         let nowselected=[...selected,copy];
         putSelectedInPlace(nowselected);
     };
+    
 
     const sendAction=(text)=>{
         const restagarray=selected.map((d)=>{
@@ -230,7 +237,7 @@ const FormedTagPutModal=(props)=>{
             <div>
                 <TextField
                     //id="standard-number"
-                    label={data.name}
+                    label={data.keyTagMain.strTagName}
                     inputRef={textRef}
                     className={classes.textField}
                     type={"text"}
@@ -245,6 +252,34 @@ const FormedTagPutModal=(props)=>{
             </div>
         )
     }
+
+    const makeSelectbox=(data) =>{
+
+        const params=data.strSelectParameters.split(",");
+
+        return(
+            <div>
+                <InputLabel id="demo-simple-select-label">{data.keyTagMain.strTagName}</InputLabel>
+                <Select
+                    labelId="select-box"
+                    defaultValue={-1}
+                    
+                    onChange={(e)=>{setSelectPool(e.target.value)}}
+                >
+                    <MenuItem value="-1">以下からお選びください</MenuItem>
+                    {params.map((d)=>{
+                        return(
+                            <MenuItem value={d}>{d}</MenuItem>
+                        )})
+                    }
+                </Select>
+                <Button size={"small"} variant='contained' color="primary" onClick={()=>onDecide(data, selectPool)}>次へ</Button>
+            </div>
+        )
+
+    }
+
+
 
     const CheckSpecialTag=(data)=>{
         let inputType="none";
@@ -274,6 +309,10 @@ const FormedTagPutModal=(props)=>{
                 inputType="time";
                 defaultValue=("0"+(date.getHours())).slice(-2)+":"+("0"+date.getMinutes()).slice(-2);
                 break;
+            case TAG_SELECT_BOX:
+                return makeSelectbox(data);             
+
+
             default :
                 return (
                     TagButton(data)

@@ -9,6 +9,8 @@ export const TAG_TIME_INPUT=14;
 export const TAG_DATE_TIME_INPUT=15;
 export const TAG_TEXT_INPUT=13;
 export const TAG_MULTILINE_INPUT=16;
+export const TAG_SELECT_BOX=17;
+
 
 export const TYPE_TAG_FUNCTION=1;
 export const TYPE_TAG_MEMBER=2;
