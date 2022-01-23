@@ -10,6 +10,7 @@ import TestMain from './pages/TestMain';
 import { Switch, useLocation } from 'react-router';
 import { FirstLoginButton } from './components/parts/AuthButtons';
 import FirstLoginEndPage from './pages/FirstLoginEndPage';
+import NoMatchPage from './pages/NoMatchPage';
 function App() {
   //const datas=datasend;
   const location=useLocation();
@@ -35,6 +36,8 @@ function App() {
           { location.pathname!=="/" &&
           <Route component={PageBase} />
           }
+          <Route  path='*' exact component={NoMatchPage} />
+          
         </Switch>      
       </Router>
     </div>
