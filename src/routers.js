@@ -58,8 +58,8 @@ const PageRouter=(props)=>{
                 <Route  path='/tagconfig' exact component={UserConfigListPage} />
                 <Route  path='/tagadmin' exact component={TagAdminListPage} />
                 <Route  path='/reply/:id' exact  component={ReplyThreadPage}  />
-                
-                <Route  path='*' exact  component={NoMatchPage}  />
+                }  
+                />
               </div>
               </CSSTransition>
           </TransitionGroup>
