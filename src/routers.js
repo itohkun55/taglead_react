@@ -13,6 +13,7 @@ import TagAdminListPage from './pages/TagAdminListPage';
 import {CSSTransition}  from 'react-transition-group';
 import {TransitionGroup} from 'react-transition-group';
 import './pageSlider.scss';
+import NoMatchPage from './pages/NoMatchPage';
 
 
 const PageRouter=(props)=>{
@@ -57,6 +58,8 @@ const PageRouter=(props)=>{
                 <Route  path='/tagconfig' exact component={UserConfigListPage} />
                 <Route  path='/tagadmin' exact component={TagAdminListPage} />
                 <Route  path='/reply/:id' exact  component={ReplyThreadPage}  />
+                
+                <Route  path='*' exact  component={NoMatchPage}  />
               </div>
               </CSSTransition>
           </TransitionGroup>

@@ -21,15 +21,18 @@ import CheckBoxTwoToneIcon from '@material-ui/icons/CheckBoxTwoTone';
 import CheckBoxOutlineBlankTwoToneIcon from '@material-ui/icons/CheckBoxOutlineBlankTwoTone';
 import StarTwoToneIcon from '@material-ui/icons/StarTwoTone';
 import StarBorderTwoToneIcon from  '@material-ui/icons/StarBorderTwoTone';
+import FileCopy from '@material-ui/icons/FileCopy';
 import { Typography } from '@material-ui/core';
 import TagFaces from '@material-ui/icons/TagFaces';
 
 import  {getDateMessage} from  '../lib/UtilityLibrary';
 import ExpandText from './parts/ExpandText';
 import {TagChipList} from './parts/TagChip';
-import {MAKE_NEWFOLLOW_MODAL,MAKE_NEW_REPLY_MODAL} from '../lib/ActionTypeString';
+import {MAKE_NEWFOLLOW_MODAL,MAKE_NEW_REPLY_MODAL,SHOW_SNACK} from '../lib/ActionTypeString';
 import { TEXT_LIMIT } from '../lib/ServiceConfig';
 import {hasreadCheck,hasfavCheck,editMemo, deleteMemo} from '../actions';
+
+import { useWindowDimensions } from '../lib/useWindowDimensions';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -54,10 +57,10 @@ const useStyles = makeStyles((theme) => ({
         borderTop: '2px solid #ccc',
         fontSize:'15px'
       },
-      ulbutton:{
+    ulbutton:{
         display:"flex",
         listStyle:"none",
-        align:"flex-end",  
+        justifyContent:"flex-end",  
     },
     
     topset:{
@@ -74,8 +77,15 @@ const useStyles = makeStyles((theme) => ({
     todatePublish:{
         textAlign:"right",
     },
+    toCheckers:{
+        alignItems:"left"
+    },
     toFooter:{
         margin:"0 0 0 auto"
+    },
+    mobileFooter:{
+        display:"flex",
+        justifyContent: "flex-start",
     },
 
     icons:{
@@ -143,6 +153,10 @@ const MemoColumn=({data,read,fav,rep=false})=>{
     const classes=useStyles();
     const dispatch= useDispatch();
 
+    
+    const {width,height}=useWindowDimensions();
+    const isMobile=width<500;
+
     const onFavClick=()=>{
         setFavorite(!isFav);
         dispatch(hasfavCheck(data.id,!isFav));
@@ -167,6 +181,16 @@ const MemoColumn=({data,read,fav,rep=false})=>{
          
          return names.reduce((acc,value)=>acc+","+value);
      };
+
+    const copyTextToClipboard=(text)=> {
+        navigator.clipboard.writeText(text)
+        .then(()=> {
+            dispatch({type:SHOW_SNACK,msg:"コピーしました"});
+        }, (err)=> {
+            
+            dispatch({type:SHOW_SNACK,msg:"コピー失敗しました"});
+        });
+    };
 
 
      const MemoManipulate=()=>{
@@ -263,39 +287,65 @@ const MemoColumn=({data,read,fav,rep=false})=>{
         )
      };
 
+     const senderColumn=()=>{
+            
+        return (
+            <span className={classes.toFooter}>
+                <div className={classes.todatePublish}> { getDateMessage(data.datePublish) }</div>
+                {  data.listReceiver & data.listReceiver!=="" ?
+                    <div className={classes.toName} >宛先:{getNames(data.listReceiver)}</div>
+                    :
+                    <div/>
+                }
+            </span>
+        )
+     }
+
 
 
     return (
         <div>
 
                 <Box className={classes.box11}>
-                    <div className={classes.topset} >
-                        <span className={classes.headertext}>
-                        <div><Typography variant='h6' >{getDateMessage(data.dateRegist) }</Typography></div>
-                        <div><Typography variant='subtitle2' >{getNames(data.keySender)}より </Typography></div> 
-                        </span>
-                        <span className={classes.ulbutton}>
-                            <span className={classes.ulbutton}>
+                    <div className={
+                        isMobile ?
+                         null   
+                        : classes.topset
+                        } >
+                        <div className={classes.headertext}>
+                            <div><Typography variant='h6' >{getDateMessage(data.dateRegist) }</Typography></div>
+                            <div><Typography variant='subtitle2' >{getNames(data.keySender)}より </Typography></div> 
+                        </div>
+                        <div className={classes.ulbutton}>
+                            <div className={classes.ulbutton}>
                                 <IconButton onClick={!hasRead ?  onReadClick : ()=>{} }>
                                     {hasRead ? (<CheckBoxTwoToneIcon/>  ):( <CheckBoxOutlineBlankTwoToneIcon/>)}
                                 </IconButton>
-                            </ span>
-                        
-                            <span className={classes.icons} >
+                            </ div>
+                            <div className={classes.icons} >
                                 <IconButton onClick={onFavClick} >
                                     {isFav ? ( <StarTwoToneIcon/> ):( <StarBorderTwoToneIcon/> )}
                                 </IconButton>
                             
-                            </span>
+                            </div>
+                            {!data.boolHasDeleted ?
+                                <div>
+                                    <IconButton onClick={()=>copyTextToClipboard(data.strMainText)}>
+                                        <FileCopy/>
+                                    </IconButton>
+                                </div>
+                                :
+                                <div/>
+                            }
 
                             {userId===data.keySender & !data.boolHasDeleted ?
-                                <span className={classes.icons} >
+                                <div className={classes.icons} >
                                     {MemoManipulate()}
-                                </span>
+                                </div>
                                 :
-                                <span/>
+                                <div/>
                             }
-                        </span>
+                        </div>
                     </div>
                           
                     {!editable ?
@@ -321,26 +371,33 @@ const MemoColumn=({data,read,fav,rep=false})=>{
                     {bdelete ?
                         DeleteColumn()
                     :
-                        <div className={classes.ulbutton} >
-                            <span><IconButton edge="start" color="inherit"  className={classes.menuButton} onClick={()=>dispatch({type:MAKE_NEW_REPLY_MODAL,reply_source:data})} ><ReplyTwoToneIcon size="small"/></IconButton></span>
-                            <span><IconButton edge="start" ize="small" color="inherit" onClick={()=>dispatch({type:MAKE_NEWFOLLOW_MODAL,follow_data:data})} ><AddCircleOutlineTwoToneIcon size="small"/></IconButton></span>
-                            {data.keyReplyBase &  !rep　?
-                                <span><Button edge="start" ize="small" color="inherit" onClick={()=>history.push("/reply/"+data.id)}   endIcon={<DoubleArrowOutlined />}> 応答を開く </Button></span>
+                        <div>
+                            {isMobile ?
+                                senderColumn()
+                                :
+                                <div/>
+                            }
+                        <div className={classes.mobileFooter} >
+                            <div><IconButton edge="start" color="inherit"  className={classes.menuButton} onClick={()=>dispatch({type:MAKE_NEW_REPLY_MODAL,reply_source:data})} ><ReplyTwoToneIcon size="small"/></IconButton></div>
+                            <div><IconButton edge="start" ize="small" color="inherit" onClick={()=>dispatch({type:MAKE_NEWFOLLOW_MODAL,follow_data:data})} ><AddCircleOutlineTwoToneIcon size="small"/></IconButton></div>
+                            {data.keyReplyBase &  !rep ?
+                                <div><Button edge="start" ize="small" color="inherit" onClick={()=>history.push("/reply/"+data.id)}   endIcon={<DoubleArrowOutlined />}> 応答を開く </Button></div>
                                 :
                                 null
                             }
 
                             {data.boolHasModified &&
-                                <span> 修正あり </span>
+                                <div> 修正あり </div>
                             }
-                            <span className={classes.toFooter}>
-                                <div className={classes.todatePublish}> { getDateMessage(data.datePublish) }</div>
-                                {  data.listReceiver & data.listReceiver!=="" ?
-                                    <div className={classes.toName} >宛先:{getNames(data.listReceiver)}</div>
-                                    :
-                                    <div/>
-                                }
-                            </span>
+                            {
+
+                            }
+                            {!isMobile ?
+                                senderColumn()
+                                :
+                                <div/>
+                            }
+                        </div>
                         </div>
                     }
                 </Box>

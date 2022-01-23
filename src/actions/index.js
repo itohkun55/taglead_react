@@ -48,14 +48,15 @@ export const setReplyData=(tagArray,mainText,dateRegist,data)=>dispatch=>{
 
     const sendParam={ 
         "memoId":data.id,
-        'tagArray':tagArray,
+        'settags':tagArray,
         'mainText':mainText,
         'datePublish':getTimeStampNow(),
         'dateRegist':dateRegist
     };
 
     const resFunc=(res)=>{
-        return {res:res,id:data.id};
+        const resSet=res.resSet;
+        return { timeline:resSet.timeline,read:resSet.read,fav:resSet.fav,endflg:resSet.endflg,id:res.id };
     };
 
     APICallController.callAPI("repinsert",sendParam,SHOW_REPLY,resFunc,dispatch);

@@ -177,6 +177,7 @@ const FormedTagPutModal=(props)=>{
         copy.keyTagMain.strTagName=copy.keyTagMain.strTagName+":"+txt;
         let nowselected=[...selected,copy];
         putSelectedInPlace(nowselected);
+        setSelectPool("");
     };
     
 

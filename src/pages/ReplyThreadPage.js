@@ -58,7 +58,8 @@ const ReplyThreadPage=(props)=>{
                 }
     
                 {Object.keys(reply_main.parent_data).length!==0 ? 
-                     <div><div> 直近の応答</div><ReplyColumn  data={ reply_main.parent_data } mark={"b"}/></div> 
+                     <div><div> 直近の応答</div>
+                        <MemoColumn  data={ reply_main.parent_data }  fav={ reply_main.fav} read={reply_main.read} rep={true} mark={"b"}/></div> 
                 :
                      <div/> 
                 }
