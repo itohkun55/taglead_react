@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector,useDispatch}  from 'react-redux';
 import MainHeader from "../components/MainHeader";
-import {  makeStyles } from '@material-ui/core';
+import {  makeStyles, Typography } from '@material-ui/core';
 import NoticeList from '../components/NoticeList';
 
 //テスト表示用
@@ -27,6 +27,7 @@ const NoticeListPage=(props)=>{
     return (
         
         <div >
+            <Typography variant='h5'>通知</Typography>
             <NoticeList />
         </div> 
 

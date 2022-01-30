@@ -1,4 +1,4 @@
-import React ,{useState}  from 'react';
+import React   from 'react';
 import {useDispatch,useSelector}  from 'react-redux';
 import {makeStyles} from '@material-ui/styles';
 import MemoColumn from './MemoColumn';
@@ -31,7 +31,7 @@ const FavoriteList=(props)=>{
     const timeline=useSelector(state=>state.show_favorite.timeline,[]);
     const read=useSelector(state=>state.show_favorite.read,[]);
     const fav=useSelector(state=>state.show_favorite.fav,[]);
-    const endflg=useSelector(state=>state.show_favorite.endflg);
+    const endflg=useSelector(state=>state.show_favorite.endflg,true);
     const dispatch = useDispatch();
 
     const setNewTimeLine=()=>{
@@ -41,9 +41,7 @@ const FavoriteList=(props)=>{
     const classes=listStyles();
 
     return (
-        <div className={classes.base}>
-            <div><Typography variant='h5' gutterBottom >お気に入り一覧</Typography></div>
-            <hr/>
+        <div>
             <ScrollUpdater scrollFunc={()=>setNewTimeLine() }  checkParam={timeline} endflg={endflg} buffer={60} />
             {timeline && 
                 timeline.map((d)=>{
@@ -55,7 +53,7 @@ const FavoriteList=(props)=>{
                     />)
                 })
             }
-            {endflg ?  <div><Typography variant='h6' gutterBottom >現在の表示内容は以上です。</Typography></div> : <div className={classes.progress}><LinearProgress/></div> }
+            {endflg ?  <div><Typography variant='h6' gutterBottom >現在の登録の物は以上です。</Typography></div> : <div className={classes.progress}><LinearProgress/></div> }
            
 
         </div>

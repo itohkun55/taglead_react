@@ -36,7 +36,7 @@ function App() {
           { location.pathname!=="/" &&
           <Route component={PageBase} />
           }
-          <Route  path='*' exact component={NoMatchPage} />
+          <Route exact component={NoMatchPage} />
           
         </Switch>      
       </Router>

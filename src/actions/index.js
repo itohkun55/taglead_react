@@ -237,9 +237,6 @@ export const loadNewMemo=fromDay=>dispatch=>{
 };
 
 export const hasreadCheck=(memoId,read)=>dispatch=>{
-    // const resFunc=(res)=>{
-    //     return { timeline:[],read:[],fav:[] };
-    // };
     
     const resFunc=(res)=>{
         return { change:0 };
@@ -248,10 +245,6 @@ export const hasreadCheck=(memoId,read)=>dispatch=>{
 };
 
 export const hasfavCheck=(memoId,fav)=>dispatch=>{
-    // const resFunc=(res)=>{
-    //     return { timeline:[],read:[],fav:[] };
-
-    // };
     const resFunc=(res)=>{
         return { change:0 };
     };
@@ -261,7 +254,7 @@ export const hasfavCheck=(memoId,fav)=>dispatch=>{
 export const showFavorite=()=>dispatch =>{
 
     const resFunc=(res)=>{
-        return { timeline:res.timeline,read:res.read,fav:res.fav,endflg:res.end };
+        return { timeline:res.timeline,read:res.read,fav:res.fav,endflg:res.endflg };
     };
 
     APICallController.callAPI("favorite",{memoId:1,fav:2},SHOW_FAVORITE,resFunc,dispatch);

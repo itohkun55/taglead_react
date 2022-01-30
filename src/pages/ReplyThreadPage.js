@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSelector,useDispatch}  from 'react-redux';
-import { LinearProgress, makeStyles } from '@material-ui/core';
+import { LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import  {getReplyData} from '../actions';
 import ReplyColumnList  from '../components/ReplyColumnList';
 import ReplyColumn from '../components/ReplyColumns';
@@ -42,7 +42,8 @@ const ReplyThreadPage=(props)=>{
 
     const normalSceane=()=>{
         return (
-            <div >
+            <div className={classes.base}>
+                <div><Typography variant='h5'>応答スレッド</Typography></div>
                 
                 {reply_main.past_thread.length!==0 ?
                 　　<div>

@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import {connect,useSelector,useDispatch}  from 'react-redux';
-import { LinearProgress, makeStyles } from '@material-ui/core';
+import { LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import UserTagAdminList from '../components/UserTagAdminList';
 import { auth_login_success } from '../actions';
 
@@ -35,6 +35,7 @@ const TagAdminListPage=(props)=>{
     return (
 
         <div className={classes.base} >
+            <Typography variant='h5'>タグ管理者画面</Typography>
             <UserTagAdminList/>
         </div>
     )

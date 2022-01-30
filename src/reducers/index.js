@@ -9,7 +9,6 @@ import  {PUSH_SHOW_MEMO_BUTTON,
         MEMO_EDIT_END_TAG,
         AUTH_SUCCESS,
         MEMO_INSERT_END,
-        RESET_TAG,
         TAGGED_SEARCH,
         LOADING_START,
         LOADING_END,
@@ -35,7 +34,6 @@ import  {PUSH_SHOW_MEMO_BUTTON,
         SIGN_UP
     } from '../lib/ActionTypeString';
 
-import  {useSnackbar} from 'notistack';
 
 const INIT_ACTION={
     type:"NONE",
@@ -150,17 +148,6 @@ const tag_admin=(state=INIT_TAG_ADMIN_STATE,action=INIT_ACTION)=>{
     }    
 };
 
-const INIT_USER_TAG={
-    user_config:[]
-
-};
-
-
-//各ユーザーのログイン時のやり取り
-const INIT_USER_STATE={
-    login_id:-1,
-    open_password:false,
-};
 
 const INIT_MEMO_MAIN_STATE={
     timeline:[],
@@ -170,8 +157,6 @@ const INIT_MEMO_MAIN_STATE={
     endflg:false,
     change:0
 };
-
-const INIT_MEMO_STATE="";
 
 const memo_main=(state=INIT_MEMO_MAIN_STATE,action=INIT_ACTION)=>{
     
@@ -270,7 +255,7 @@ export const tagged_main=(state=INIT_TAGGED_SEARCH,action=INIT_ACTION)=>{
             };     
         
         case TAGGED_SEARCH_CONTINUE:
-            if( result.timeline.length==0){
+            if( result.timeline.length===0){
                 return {...state,
                     endflg:result.endflg
                 }; 
@@ -298,7 +283,7 @@ export const tagged_main=(state=INIT_TAGGED_SEARCH,action=INIT_ACTION)=>{
 
 
 
-const show_favorite=(state=INIT_MEMO_STATE,action)=>{
+const show_favorite=(state=INIT_MEMO_MAIN_STATE,action=INIT_TAGGED_SEARCH)=>{
     switch(action.type){
         case SHOW_FAVORITE:
             return {...state,
